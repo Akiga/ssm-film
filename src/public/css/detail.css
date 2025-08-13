@@ -1,0 +1,263 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #fff;
+}
+
+.manh-img-bg{
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    position: relative;
+}
+
+.manh-detail-content{
+    display: flex;
+    background-color: #191b24;
+}
+
+.manh-detail-content-left{
+    width: 30%;
+    padding: 40px;
+}
+
+.manh-detail-img{
+    width: 160px;
+    height: 240px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.manh-detail-content-left-content{
+    margin-top: 20px;
+}
+
+.manh-detail-content-left-content h4{
+    font-weight: 600;
+}
+
+
+
+.manh-detail-genres{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    list-style: none;
+    padding: 0;
+}
+
+.manh-detail-genres li{
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    border: 2px solid #e0e0e0;
+}
+
+.manh-detail-label{
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.manh-detail-content-right{
+    width: 70%;
+    padding: 20px;
+    background-color: #000;
+    border-radius: 50px 0 0 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+.manh-detail-content-right-in{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn{
+    color: #fff !important;
+}
+
+/* From Uiverse.io by jawad_8494 */ 
+.super-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 14px 28px;
+  background: linear-gradient(145deg, #0f0f0f, #1c1c1c);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 100px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.4s ease-in-out;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  z-index: 1;
+}
+
+.super-button::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(from 0deg, #00ffff, #ff00ff, #00ffff);
+  animation: rotate 4s linear infinite;
+  z-index: -2;
+}
+
+.super-button::after {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  background: #0a0a0a;
+  border-radius: inherit;
+  z-index: -1;
+}
+
+.super-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 40px rgba(0, 255, 255, 0.2);
+}
+
+.super-button:hover .arrow {
+  transform: translateX(6px);
+}
+
+.arrow {
+  width: 22px;
+  height: 22px;
+  transition: transform 0.3s ease-in-out;
+  color: #00ffff;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.manh-detail-content-right-like{
+    height: 50px;
+    margin: 0px 30px;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+}
+
+.manh-detail-content-right-like:hover{
+    background-color: #ccc;
+    color: #fff;
+    border-radius: 10px;
+}
+
+.manh-detail-content-right-episode{
+    margin: 24px;
+}
+
+.manh-detail-content-right-episode-list{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 12px 0;
+}
+
+.episodesItem{
+  padding: 0.5rem 2.5rem;
+  border: 1px solid #fff;
+  border-radius: 8px;
+}
+
+.manh-detail-actor{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    list-style: none;
+    padding: 0;
+}
+
+.manh-detail-actor-item{
+    width: 200px;
+}
+
+.manh-detail-actor-name{
+    font-weight: bold;
+    margin-top: 8px;
+    text-align: center;
+}
+
+.manh-fasvorite-btn{
+    background-color: transparent;
+    border: none;
+    color: #f20707;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.computer-none{
+    display: none;
+}
+
+@media (max-width: 768px) {
+  .manh-detail-content{
+    display: block;
+  }
+  .manh-img-bg{
+    height: 30vh;
+  }
+.manh-detail-content-left{
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+    .manh-detail-genres{
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        list-style: none;
+        padding: 0;
+        justify-content: center;
+    }
+    .m-accordion{
+        color: #00ffff;
+    }
+    .manh-computer{
+        display: none;
+    }
+    .manh-detail-content-right{
+        width: 100%;
+    }
+    .manh-detail-content-right-in{
+        display: block;
+    }
+    
+    .mobile-xem{
+        display: block;
+        text-align: center;
+    }
+    .episodesItem{
+        padding: 0.5rem 0.5rem;
+    }
+    .manh-detail-actor-item{
+        width: 45%;
+    }
+}

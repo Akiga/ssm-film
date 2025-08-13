@@ -1,0 +1,193 @@
+
+<body>
+    <% if (successMessage) { %>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                var myModal = new bootstrap.Modal(document.getElementById('exampleModalToggle'));
+                myModal.show();
+                document.querySelector(".text-success").style.display = "block";
+            });
+        </script>
+    <% } %>
+    <% if (errorMessage) { %>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                var myModal = new bootstrap.Modal(document.getElementById('exampleModalToggle2'));
+                myModal.show();
+                document.querySelector(".text-danger").style.display = "block";
+            });
+        </script>
+    <% } %>
+
+    <main class="manh-main">
+        <div class="manh-slider">
+            <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active" data-bs-interval="5000">
+                    <img src="https://cellphones.com.vn/sforum/wp-content/uploads/2024/01/hinh-nen-anime-1.jpg" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item" data-bs-interval="5000">
+                    <img src="https://cdn.hostingviet.vn/data/tinymce/2023/hinh-nen-may-tinh-4k-1.jpg" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                    <img src="https://media.vov.vn/sites/default/files/styles/large/public/2024-05/02_1_0.jpg" class="d-block w-100" alt="...">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="manh-content">
+            <h2 class="manh-title">Bạn đang quan tâm gì?</h2>
+            <div class="manh-topic">
+                <a href="/list/phim-le" class="card text-bg-primary manh-topic-hover holographic-card mb-3" style="width: 15rem; height: 10rem;">
+                    <div class="card-header">Chủ đề</div>
+                    <div class="card-body">
+                        <h5 class="card-title">Phim lẻ</h5>
+                        <p class="manh-topic-text">Xem chủ đề <i class="fa-solid fa-forward"></i></p>
+                    </div>
+                </a>
+
+                <a href="/list/phim-bo" class="card text-bg-success manh-topic-hover holographic-card mb-3" style="width: 15rem; height: 10rem;">
+                    <div class="card-header">Chủ đề</div>
+                    <div class="card-body">
+                        <h5 class="card-title">Phim bộ</h5>
+                        <p class="manh-topic-text">Xem chủ đề <i class="fa-solid fa-forward"></i></p>
+                    </div>
+                </a>
+
+                <a href="/list/hoat-hinh" class="card text-bg-warning manh-topic-hover holographic-card mb-3" style="width: 15rem; height: 10rem;">
+                    <div class="card-header">Chủ đề</div>
+                    <div class="card-body">
+                        <h5 class="card-title">Hoạt hình</h5>
+                        <p class="manh-topic-text">Xem chủ đề <i class="fa-solid fa-forward"></i></p>
+                    </div>
+                </a>
+
+                <a href="/list/tv-shows" class="card text-bg-dark manh-topic-hover holographic-card mb-3" style="width: 15rem; height: 10rem;">
+                    <div class="card-header">Chủ đề</div>
+                    <div class="card-body">
+                        <h5 class="card-title">TV Shows</h5>
+                        <p class="manh-topic-text">Xem chủ đề <i class="fa-solid fa-forward"></i></p>
+                    </div>
+                </a>
+                
+            </div>
+
+            <!-- <h2 class="manh-title">Xem tiếp của bạn
+                <a class="example_f" href="#"><span><i class="fa-solid fa-forward"></i></span></a>
+            </h2>
+
+            <div class="manh-movie">
+                <div class="text-center">
+                    <div class="row">
+                        <div class="col manh-flex">
+                            <div class="card">
+                                <a href="#" class="card-inner">
+                                    <div class="card-front">
+                                        <img src="https://phimimg.com/upload/vod/20250325-1/6db202d6161c123d96b0180c2da9b1e5.jpg" style="height: 20rem; border-radius: 0.5rem;" class="card-img-top" alt="...">
+                                    </div>
+                                    <div class="card-back">
+                                        <h5 class="card-title-back">Ngôi Trường Xác Sống</h5>
+                                        <p class="card-text">All of Us Are Dead</p>
+                                    </div>
+                                </a>
+                            </div>
+                            
+
+                            <div class="card">
+                                <a href="#" class="card-inner">
+                                    <div class="card-front">
+                                        <img src="https://phimimg.com/upload/vod/20250325-1/6db202d6161c123d96b0180c2da9b1e5.jpg" style="height: 20rem; border-radius: 0.5rem;" class="card-img-top" alt="...">
+                                    </div>
+                                    <div class="card-back">
+                                        <h5 class="card-title-back">Ngôi Trường Xác Sống</h5>
+                                        <p class="card-text">All of Us Are Dead</p>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="card">
+                                <a href="#" class="card-inner">
+                                    <div class="card-front">
+                                        <img src="https://phimimg.com/upload/vod/20250325-1/6db202d6161c123d96b0180c2da9b1e5.jpg" style="height: 20rem; border-radius: 0.5rem;" class="card-img-top" alt="...">
+                                    </div>
+                                    <div class="card-back">
+                                        <h5 class="card-title-back">Ngôi Trường Xác Sống</h5>
+                                        <p class="card-text">All of Us Are Dead</p>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="card">
+                                <a href="#" class="card-inner">
+                                    <div class="card-front">
+                                        <img src="https://phimimg.com/upload/vod/20250325-1/6db202d6161c123d96b0180c2da9b1e5.jpg" style="height: 20rem; border-radius: 0.5rem;" class="card-img-top" alt="...">
+                                    </div>
+                                    <div class="card-back">
+                                        <h5 class="card-title-back">Ngôi Trường Xác Sống</h5>
+                                        <p class="card-text">All of Us Are Dead</p>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="card">
+                                <a href="#" class="card-inner">
+                                    <div class="card-front">
+                                        <img src="https://phimimg.com/upload/vod/20250325-1/6db202d6161c123d96b0180c2da9b1e5.jpg" style="height: 20rem; border-radius: 0.5rem;" class="card-img-top" alt="...">
+                                    </div>
+                                    <div class="card-back">
+                                        <h5 class="card-title-back">Ngôi Trường Xác Sống</h5>
+                                        <p class="card-text">All of Us Are Dead</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+
+            <h2 class="manh-title">Phim mới cập nhật
+                <a class="example_f" href="/list"><span><i class="fa-solid fa-forward"></i></span></a>
+            </h2>
+
+            <div class="manh-movie">
+                <div class="container text-center">
+                    <div class="row">
+                        <div class="col manh-flex">
+                        <% if (movies.items.length > 0) { %>
+                            <% movies.items.forEach(movie => { %>
+                                <div class="card computer-card">
+                                    <a href="/<%= movie.slug %>" class="card-inner">
+                                        <div class="card-front">
+                                            <img src="<%= movie.poster_url %>" style="height: 20rem; border-radius: 0.5rem;" class="card-img-top" alt="<%= movie.name %>">
+                                        </div>
+                                        <div class="card-back">
+                                            <h5 class="card-title-back"><%= movie.name %></h5>
+                                            <p class="card-text"><%= movie.origin_name %></p>
+                                        </div>
+                                    </a>
+                                </div>
+
+                                <a href="/<%= movie.slug %>" class="card mobile-card">
+                                    <img src="<%= movie.poster_url %>" class="card-img-top" alt="<%= movie.name %>" style="height: 20rem; border-radius: 0.5rem;">
+                                    <h5 class="card-title"><%= movie.name %></h5>
+                                </a>
+                        <% }) %>
+                        <% } else { %>
+                        <p>Không có phim nào để hiển thị.</p>
+                        <% } %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>

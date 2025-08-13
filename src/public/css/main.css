@@ -1,0 +1,355 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a{
+    text-decoration: none;
+    color: inherit;
+}
+
+img{
+    max-height: 90vh;
+    object-fit: cover;
+}
+
+body{
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+.manh-main{
+    width: 100%;
+    height: 100%;
+    background-color: #191b24;
+}
+
+/* Header Styles */
+.manh-header {
+    background-color: #000;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    justify-content: space-between;
+}
+
+.manh-logo-link{
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #343a40;
+}
+
+.nav-link{
+  color: #fff;
+}
+
+.manh-logo{
+    width: 50px;
+    height: 50px;
+    margin: 5px;
+}
+
+.manh-slogan{
+    font-size: 1.2rem;
+    color: #6c757d;
+    margin: 0 10px;
+}
+
+.manh-user-login {
+    display: none;
+}
+
+/* Slider Styles */
+.manh-slider {
+    position: relative;
+    width: 100%;
+    max-height: 90vh;
+    overflow: hidden;
+    margin-bottom: 10vh;
+}
+
+.manh-slider img {
+    width: 100%;
+    height: auto;
+}
+
+/* Content */
+.manh-title{
+    font-size: 2rem;
+    margin: 0 0 20px 30px;
+    font-weight: bold;
+    color: #fff;
+}
+
+/* Topic */
+.manh-topic{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 10px 10px;
+}
+
+.manh-topic-text{
+  margin: 20px 0 0 0;
+  font-size: 14px;
+  text-align: center;
+}
+
+.holographic-card {
+  width: 300px;
+  height: 200px;
+  background: #111;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  border-radius: 15px;
+  transition: all 0.5s ease;
+}
+
+.holographic-card h2 {
+  color: #0ff;
+  font-size: 2rem;
+  position: relative;
+  z-index: 2;
+}
+
+.holographic-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    0deg, 
+    transparent, 
+    transparent 30%, 
+    rgba(0,255,255,0.3)
+  );
+  transform: rotate(-45deg);
+  transition: all 0.5s ease;
+  opacity: 0;
+}
+
+.holographic-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(0,255,255,0.5);
+}
+
+.holographic-card:hover::before {
+  opacity: 1;
+  transform: rotate(-45deg) translateY(100%);
+}
+
+
+/* Card Styles */
+.card {
+  width: 13rem;
+  height: 20rem;
+  cursor: pointer;
+  margin: 20px;
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.card:hover .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+}
+
+.card-front {
+  background: white;
+  border: 1px solid #e5e7eb;
+}
+
+.card-back {
+  display: block;
+  background: #000;
+  color: white;
+  transform: rotateY(180deg);
+}
+
+.manh-flex{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card-title{
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.card-body{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.card-title-back{
+  margin-top: 50%;
+}
+
+.example_f {
+   border-radius: 5px;
+   padding: 10px;
+   text-align: center;
+   transition: background-color 0.3s ease;
+   font-size: 14px;
+ }
+
+ .example_f span {
+   cursor: pointer;
+   display: inline-block;
+   position: relative;
+   transition: 0.4s;
+ }
+ .example_f span:after {
+   content: 'Xem thêm ';
+   color: #0d6efd;
+   position: absolute;
+   opacity: 0;
+   top: 0;
+   right: -60px;
+   transition: 0.5s;
+ }
+ .example_f:hover span {
+   padding-right: 80px;
+ }
+ .example_f:hover span:after {
+   opacity: 1;
+   right: 0;
+ }
+
+ /* Footer */
+ .phim-footer {
+  background-color: #111;
+  color: #ccc;
+  padding: 40px 20px 20px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.phim-footer-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.phim-footer-section {
+  flex: 1 1 250px;
+  margin: 10px 20px;
+}
+
+.phim-footer-title,
+.phim-footer-subtitle {
+  color: #fff;
+  margin-bottom: 15px;
+}
+
+.phim-footer-links {
+  list-style: none;
+  padding: 0;
+}
+
+.phim-footer-links li {
+  margin-bottom: 10px;
+}
+
+.phim-footer-links li a {
+  color: #ccc;
+  text-decoration: none;
+}
+
+.phim-footer-links li a:hover {
+  color: #ff3c00;
+  text-decoration: underline;
+}
+
+.phim-footer-bottom {
+  border-top: 1px solid #444;
+  margin-top: 30px;
+  text-align: center;
+  padding-top: 15px;
+  font-size: 14px;
+}
+
+
+.manh-delete-favorite{
+    color: #000;
+    cursor: pointer;
+    font-size: 1.2rem;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 4px 6px;
+    background-color: #ccc;
+    border-radius: 4px;
+  }
+
+.mobile-card{
+  display: none;
+}
+
+@media (max-width: 1024px) and (min-width: 769px) {
+    .manh-nav{
+    display: none;
+    }
+    .manh-flex{
+      justify-content: center;
+    }
+}
+
+@media (max-width: 768px) {
+  .d-flex{
+    display: none !important;
+  }
+  .manh-nav{
+    display: none;
+  }
+  .manh-flex, .manh-topic{
+      justify-content: center;
+    }
+
+  .card{
+    height: auto;
+  }
+  .card-title{
+    font-size: 1rem;
+    font-weight: bold;
+    margin: 12px 0;
+  }
+  .mobile-card{
+    display: block;
+  }
+  .computer-card{
+    display: none;
+  }
+  .manh-title{
+    font-size: 1rem;
+  }
+}

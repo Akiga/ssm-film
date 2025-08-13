@@ -1,0 +1,227 @@
+<header class="manh-header">
+        <a href="/" class="manh-logo-link">
+            <img src="/img/Logo-removebg-preview.png" alt="Logo" class="manh-logo">
+            <p class="manh-slogan">Ssm-Phim</p>
+        </a>
+        <form class="d-flex" role="search" method="get" action="/search">
+            <input class="form-control me-2" name="keyword" type="search" placeholder="Search" aria-label="Search"/>
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+        <nav class="manh-nav">
+            <ul class="nav justify-content-end">
+                <li class="nav-item">
+                    <a class="nav-link" href="/list/phim-le">Phim lẻ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/list/phim-bo">Phim bộ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/list/hoat-hinh">Hoạt hình</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/list/tv-shows">TV Shows</a>
+                </li>
+                <li class="nav-item">
+                    <div class="dropdown">
+                        <button class="btn dropdown-toggle nav-link" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Quốc gia
+                        </button>
+                        <ul class="dropdown-menu">
+                            <% if (countries.length > 0) { %>
+                            <% countries.forEach(country => { %>
+                                <li>
+                                <a class="dropdown-item" href="/country/<%= country.slug %>">
+                                    <%= country.name %>
+                                </a>
+                                </li>
+                            <% }) %>
+                            <% } else { %>
+                            <p>Không có gì để hiển thị.</p>
+                            <% } %>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div class="dropdown">
+                        <button class="btn dropdown-toggle nav-link" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Thể loại
+                        </button>
+                        <ul class="dropdown-menu">
+                            <% if (category.length > 0) { %>
+                            <% category.forEach(categoryItem => { %>
+                                <li>
+                                <a class="dropdown-item" href="/category/<%= categoryItem.slug %>">
+                                    <%= categoryItem.name %>
+                                </a>
+                                </li>
+                            <% }) %>
+                            <% } else { %>
+                            <p>Không có gì để hiển thị.</p>
+                            <% } %>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="manh-user-unlogin">
+            <a href="#" class="manh-user-link ">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModalToggle">
+                <i class="fa-solid fa-circle-user"></i>
+                Đăng nhập
+                </button>
+            </a>
+        </div>
+
+        <% if (user) { %>
+        <div class="manh-user-login">
+            <div class="btn-group dropdown">
+            <button type="button" class="btn " data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="/uploads/<%= user.avatar %>" alt="Ảnh cá nhân" class="rounded-circle" width="45" height="45">
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#"><%= user.username %></a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="/personal/favorite"><i class="fa-solid fa-heart manh-personal-icon" style="color: #d01111;"></i> Yêu thích</a></li>
+                <li><a class="dropdown-item" href="/personal/history"><i class="fa-solid fa-clock-rotate-left manh-personal-icon"></i> Lịch sử</a></li>
+                <li><a class="dropdown-item" href="/personal/profile"><i class="fa-solid fa-user manh-personal-icon"></i> Cá nhân</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <form action="/logout" method="post">
+                    <button type="submit" class="dropdown-item">Đăng xuất <i class="fa-solid fa-right-from-bracket"></i></button>
+                </form>
+            </ul>
+        </div>
+        </div>
+        <% } %>
+
+        
+    </header>
+    <!-- Modal -->
+        <div class="modal fade manh-z-index" id="exampleModalToggle" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Đăng nhập</h1>
+                    
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    
+                </div>
+                <div class="modal-body">
+                    <p class="text-success" style="display: none;"><%= successMessage %></p>
+                    <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">Đăng kí tài khoản</button>
+
+                    <div class="mb-3 mt-3">
+                        <label for="exampleFormControlInput1" class="form-label">Email</label>
+                        <input type="email" name="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                    </div>
+                    <label for="inputPassword5" class="form-label">Mật khẩu</label>
+                    <input type="password" name="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock">
+                    <p class="text-danger" id="error-message"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-primary" onclick="login()">Đăng nhập</button>
+                </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal 2-->
+        <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+            <form class="modal-dialog modal-dialog-centered" method="post" action="/register">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Đăng kí tài khoản</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-danger" style="display: none;"><%= errorMessage %></p>
+                    <div class="mb-3 mt-3">
+                        <label for="exampleFormControlInput2" class="form-label">Tên hiển thị</label>
+                        <input type="text" name="username" class="form-control" id="exampleFormControlInput2" placeholder="Nguyễn Văn A" required>
+                    </div>
+                    <div class="mb-3 mt-3">
+                        <label for="exampleFormControlInput2" class="form-label">Email</label>
+                        <input type="email" name="email" class="form-control" id="exampleFormControlInput2" placeholder="name@example.com" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="inputPassword5" class="form-label">Mật khẩu</label>
+                        <input type="password" name="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock"required>
+                        <div id="passwordHelpBlock" class="form-text">
+                            Mật khẩu phải dài từ 8-20 ký tự, chứa chữ cái và số, và không được chứa khoảng trắng, ký tự đặc biệt hoặc emoji.
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Quay lại</button>
+                    <button type="submit" class="btn btn-primary">Đăng ký</button>
+                </div>
+                </div>
+            </form>
+        </div>
+
+<script>
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        // Kiểm tra cookie khi trang được tải
+        const token = getCookie('token');
+        if (token) {
+            $('.manh-user-unlogin').hide();
+            $('.manh-user-login').show();
+        } else {
+            $('.manh-user-unlogin').show();
+            $('.manh-user-login').hide();
+        }
+    });
+
+    function setCookie(cname, cvalue, exdays) {
+        const d = new Date();
+        d.setTime(d.getTime() + (exdays*24*60*60*1000));
+        let expires = "expires="+ d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+
+    function getCookie(cname) {
+        let name = cname + "=";
+        let decodedCookie = decodeURIComponent(document.cookie);
+        let ca = decodedCookie.split(';');
+        for(let i = 0; i <ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+
+    
+
+    function login(){
+        $.ajax({
+            type: 'POST',
+            url: '/login',
+            data: {
+                email: $('#exampleFormControlInput1').val(),
+                password: $('#inputPassword5').val()
+            }
+        }).then(data => {
+            if (data.token) {
+                setCookie('token', data.token, '1h'); // Lưu token vào cookie
+                $('#exampleModalToggle').modal('hide');
+                $('.manh-user-unlogin').hide();
+                $('.manh-user-login').show();
+                window.location.reload(); // Reload để cập nhật header
+            } else {
+                $('#error-message').text(data.error || 'Đăng nhập thất bại');
+                $('#error-message').show();
+                }
+        }).catch(err => {
+            console.error('Login error:', err);
+            $('#error-message').text('Đã xảy ra lỗi trong quá trình đăng nhập.');
+            $('#error-message').show();
+        });
+    }
+</script>

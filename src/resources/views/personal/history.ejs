@@ -1,0 +1,51 @@
+<div class="manh-favorite">
+    <div class="container">
+        <div class="manh-personal-content">
+            <div class="manh-personal-nav">
+                <h4>Quản lý tài khoản</h4>
+                <a href="/personal/history" class="nav-link manh-personal-active"><i class="fa-solid fa-clock-rotate-left manh-personal-icon"></i> Lịch sử xem</a>
+                <a href="/personal/favorite" class="nav-link"><i class="fa-solid fa-heart manh-personal-icon" style="color: #d01111;"></i> Yêu thích</a>
+                <a href="/personal/profile" class="nav-link"><i class="fa-solid fa-circle-user manh-personal-icon"></i> Thông tin cá nhân</a>
+                
+
+                <div class="manh-personal-footer">
+                    <img src="/uploads/<%= user.avatar %>" class="manh-personal-img" alt="Ảnh cá nhân" class="rounded-circle" width="45" height="45">
+                    <p><%= user.name %></p>
+                    <p><%= user.mail %></p>
+                    <form action="/logout" method="post" class="nav-logout">
+                        <button type="submit" class="dropdown-item"><i class="fa-solid fa-right-from-bracket manh-personal-icon"></i> Thoát</button>
+                    </form>
+                </div>
+        </div>
+        <div class="manh-movie manh-personal-movie">
+        <div class="container text-center">
+            <h4>Lịch sử xem</h4>
+            <div class="row">
+                <div class="col manh-flex">
+                <% if (histories && histories.length > 0) { %>
+                    <% histories.forEach(movie => { %>
+                    <div class="card computer-card">
+                        <a href="/<%= movie.slug %>" class="card-inner">
+                            <div class="card-front">
+                                <img src="<%= movie.poster_url %>" style="height: 20rem; border-radius: 0.5rem;" class="card-img-top" alt="<%= movie.name %>">
+                            </div>
+                            <div class="card-back">
+                                <h5 class="card-title-back"><%= movie.name %></h5>
+                                <p class="card-text"><%= movie.origin_name %></p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <a href="/<%= movie.slug %>" class="card mobile-card">
+                        <img src="<%= movie.poster_url %>" class="card-img-top" alt="<%= movie.name %>" style="height: 20rem; border-radius: 0.5rem;">
+                        <h5 class="card-title"><%= movie.name %></h5>
+                    </a>
+                    <% }) %>
+                <% } else { %>
+                    <p class="text-center">Không có phim yêu thích nào.</p>
+                <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

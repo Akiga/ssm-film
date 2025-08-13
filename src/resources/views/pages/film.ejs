@@ -1,0 +1,147 @@
+
+<body>
+    <main class="manh-film">
+        <% if(detailFilm.status === true) { %>
+        <a href="/<%= detailFilm.movie.slug %>" class="manh-film-back"><i class="fa-solid fa-angle-left manh-film-boder-radius"></i>Back</a>
+
+        <video id="video" controls autoplay poster="<%= detailFilm.movie.thumb_url %>" playsinline></video>
+
+        <div class="manh-film-content">
+            <a href="#" class="manh-detail-content-right-like">
+                        <i class="fa-solid fa-heart" style="color: #f20707;"></i>
+                        <span>Yêu thích</span>
+            </a>
+            <a href="#" class="manh-detail-content-right-like">
+                <i class="fa-solid fa-share"></i>
+                <span>Chia sẻ</span>
+            </a>
+            <div class="manh-rate">
+                <button type="button" class="btn manh-detail-rate" data-bs-toggle="modal" data-bs-target="#exampleModalTogglerate">
+                    <i class="fa-solid fa-thumbs-up"></i> / <i class="fa-solid fa-thumbs-down"></i>
+                    Đánh giá
+                </button>
+                <div class="modal fade manh-z-index" id="exampleModalTogglerate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Đánh giá</h1>
+                        
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        
+                    </div>
+                    <div class="modal-body">
+                        <h4>Hệ thống đang trong quá trình phát triển</h4>
+                        <p>Vui lòng quay lại sau để đánh giá phim này.</p>
+                        <p>Chân thành cảm ơn sự quan tâm của bạn!</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                        <!-- <button type="submit" class="btn btn-primary">Đăng nhập</button> -->
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="manh-film-info">
+            <div class="manh-film-info-left">
+                <img src="<%= detailFilm.movie.poster_url %>" alt="Ảnh phim" class="manh-detail-img">
+                <div class="manh-detail-content-left-content manh-film-content-left-content">
+                    <h4><%= detailFilm.movie.name %></h4>
+                    <p><%= detailFilm.movie.origin_name %></p>
+                    <ul class="manh-detail-genres">
+                        <% detailFilm.movie.category.forEach(item => { %>
+                        <li><%= item.name %></li>
+                        <% }) %>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="manh-film-info-right">
+                <p><%= detailFilm.movie.content %></p>
+                <a href="/<%= detailFilm.movie.slug %>">Thông tin phim <i class="fa-solid fa-chevron-right"></i></a>
+            </div>
+        </div>
+
+        <% if(detailFilm.movie.episode_total != '1' ) { %>
+        <div class="manh-episodes">
+            <h3 class="manh-episodes-title">Tập phim</h3>
+            <div class="manh-episodes-body">
+                <% detailFilm.episodes[0].server_data.forEach(episodesItem => { %>
+                    <a href="/film/<%= detailFilm.movie.slug %>?tap=<%= episodesItem.slug %>" class="episodesItem">
+                        <i class="fa-solid fa-play"></i>
+                        <%= episodesItem.name %>
+                    </a>
+                <% }) %>
+            </div>
+        <% }else { %>
+            <div class="manh-episodes">
+            <h3 class="manh-episodes-title">Bản Chiếu</h3>
+            <div class="manh-episodes-body">
+                <% detailFilm.episodes.forEach(episodesItem => { %>
+                    <a href="/film/<%= detailFilm.movie.slug %>?banchieu=<%= encodeURIComponent(episodesItem.server_name) %>" class="episodesItem">
+                        <i class="fa-solid fa-play"></i>
+                        <%= episodesItem.server_name %>
+                    </a>
+                <% }) %>
+            </div>
+            <% } %>
+        </div>
+        <% }else{ %>
+            <p>Lỗi rồi</p>
+            <% } %>
+    </main>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+<!-- Thư viện HLS.js  hỗ trợ trình phát audio/video HLS -->
+<script>
+    const video = document.getElementById('video');
+    const le_bo = '<%= detailFilm.movie.tmdb.type %>';
+    let videoSrc = null;
+    const episodes = JSON.parse('<%- JSON.stringify(detailFilm.episodes) %>');
+    const banchieu = new URLSearchParams(window.location.search).get('banchieu') || '#Hà Nội (Vietsub)';
+    if(le_bo === 'tv'){
+        
+        const tap_phim =  'tap-<%= episode %>';
+        for (const server of episodes) {
+            for (const episode of server.server_data) {
+            // Kiểm tra nếu slug của episode trùng với tap_phim
+            console.log(episode.slug, tap_phim);
+            if (episode.slug === tap_phim) {
+                videoSrc = episode.link_m3u8;
+                break;
+            }
+            }
+            if (videoSrc) break;
+        }
+    }else {
+        for(const server of episodes){
+            if (server.server_name === decodeURIComponent(banchieu)){
+                videoSrc = server.server_data[0]?.link_m3u8; // Lấy link_m3u8 từ server_data đầu tiên
+                    break;
+            }
+        }
+        // videoSrc = '<%= detailFilm.episodes[0].server_data[0].link_m3u8 %>'
+    }
+
+    console.log(videoSrc);
+
+    if (Hls.isSupported()) {
+      const hls = new Hls();
+      hls.loadSource(videoSrc);
+      hls.attachMedia(video);
+      hls.on(Hls.Events.MANIFEST_PARSED, function () {
+        video.play();
+      });
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      // For Safari (iOS/macOS)
+      video.src = videoSrc;
+      video.addEventListener('loadedmetadata', function () {
+        video.play();
+      });
+    } else {
+      alert("Trình duyệt không hỗ trợ HLS.");
+    }
+  </script>

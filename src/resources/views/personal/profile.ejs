@@ -1,0 +1,92 @@
+<div class="manh-favorite">
+    <div class="container">
+        <% if(successMessage) { %>
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    var toastEl = document.querySelector('.toast');
+                    var toast = new bootstrap.Toast(toastEl);
+                    toast.show();
+                });
+                setTimeout(function() {
+                    var toastEl = document.querySelector('.toast');
+                    var toast = bootstrap.Toast.getInstance(toastEl);
+                    if (toast) {
+                        toast.hide();
+                    }
+                }, 3000); // 3 seconds
+            </script>
+        <div class="toast align-items-center bg-success" role="alert" aria-live="assertive" aria-atomic="true" style="position: fixed; top: 20px; right: 20px; z-index: 1050;">
+            <div class="d-flex"> 
+                <div class="toast-body">
+                    <%= successMessage %>
+                </div>
+                <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>  
+        </div>
+        <% } %>
+        <div class="manh-personal-content">
+            <div class="manh-personal-nav">
+                <h4>Quản lý tài khoản</h4>
+                <a href="/personal/history" class="nav-link"><i class="fa-solid fa-clock-rotate-left manh-personal-icon"></i> Lịch sử xem</a>
+                <a href="/personal/favorite" class="nav-link "><i class="fa-solid fa-heart manh-personal-icon" style="color: #d01111;"></i> Yêu thích</a>
+                <a href="/personal/profile" class="nav-link manh-personal-active"><i class="fa-solid fa-circle-user manh-personal-icon"></i> Thông tin cá nhân</a>
+                
+                <div class="manh-personal-footer">
+                    <img src="/uploads/<%= user.avatar %>" class="manh-personal-img" alt="Ảnh cá nhân" class="rounded-circle" width="45" height="45">
+                    <p><%= user.name %></p>
+                    <p><%= user.mail %></p>
+                    <form action="/logout" method="post" class="nav-logout">
+                        <button type="submit" class="dropdown-item"><i class="fa-solid fa-right-from-bracket manh-personal-icon"></i> Thoát</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="manh-movie manh-personal-movie manh-personal-profile">
+                <form class="manh-profile" method="post" action="/personal/profile?_method=PATCH">
+                    <h4>Tài khoản</h4>
+                    <p class="profile-desc">Cập nhật thông tin tài khoản</p>
+                    <label for="exampleFormControlInput1" class="form-label manh-profile-label">Email address</label>
+                    <input class="form-control manh-input-bg" type="text" value="<%= user.email %>"  aria-label="Disabled input example" disabled>
+                    <label for="exampleFormControlInput1" class="form-label manh-profile-label">Thời gian tạo tài khoản</label>
+                    <input class="form-control manh-input-bg" type="text" value="<%= utcDate %>"  aria-label="Disabled input example" disabled>
+                    <label for="exampleFormControlInput1" class="form-label manh-profile-label">Tên đăng nhập</label>
+                    <input type="text" class="form-control manh-input-bg" name="username" id="exampleFormControlInput1" value="<%= user.username %>">
+                    <button type="submit" class="btn btn-primary btn-update-profile">Cập nhật</button>
+                </form>
+
+                <div class="manh-profile-avt">
+                    <img src="/uploads/<%= user.avatar %>" alt="Ảnh đại diện" class="rounded-circle" width="100" height="100">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary manh-profile-avt-label" data-bs-toggle="modal" data-bs-target="#avtModal">
+                    Tải ảnh lên
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="avtModal" tabindex="-1" aria-labelledby="avtModalLabel" aria-hidden="true">
+                    <form class="modal-dialog modal-dialog-centered" enctype="multipart/form-data" method="post" action="/personal/profile/avatar">
+                        <div class="modal-content" style="background-color: #2a314e">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="avtModalLabel" style="color: #fff;">Đổi ảnh đại diện</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p class="profile-desc">Tải lên ảnh đại diện của bạn từ thiết bị. Chú ý ảnh không nặng quá 2mb. Chấp nhận PNG, JPG, WEBP.</p>
+                            <div class="mb-3">
+                                <label for="formFile" class="form-label" style="color: #fff;">Chọn hình đại diện</label>
+                                <input class="form-control" type="file" id="formFile" name="avatar">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                            <button type="submit" class="btn btn-primary">Cập nhật</button>
+                        </div>
+                        </div>
+                    </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+

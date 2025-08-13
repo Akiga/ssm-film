@@ -1,0 +1,79 @@
+<div class="manh-favorite">
+    <div class="container">
+        <% if(successMessage) { %>
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    var toastEl = document.querySelector('.toast');
+                    var toast = new bootstrap.Toast(toastEl);
+                    toast.show();
+                });
+                setTimeout(function() {
+                    var toastEl = document.querySelector('.toast');
+                    var toast = bootstrap.Toast.getInstance(toastEl);
+                    if (toast) {
+                        toast.hide();
+                    }
+                }, 3000); // 3 seconds
+            </script>
+        <div class="toast align-items-center bg-success" role="alert" aria-live="assertive" aria-atomic="true" style="position: fixed; top: 20px; right: 20px; z-index: 1050;">
+            <div class="d-flex"> 
+                <div class="toast-body">
+                    <%= successMessage %>
+                </div>
+                <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>  
+        </div>
+        <% } %>
+        <div class="manh-personal-content">
+            <div class="manh-personal-nav">
+                <h4>Quản lý tài khoản</h4>
+                <a href="/personal/history" class="nav-link"><i class="fa-solid fa-clock-rotate-left manh-personal-icon"></i> Lịch sử xem</a>
+                <a href="/personal/favorite" class="nav-link manh-personal-active"><i class="fa-solid fa-heart manh-personal-icon" style="color: #d01111;"></i> Yêu thích</a>
+                <a href="/personal/profile" class="nav-link"><i class="fa-solid fa-circle-user manh-personal-icon"></i> Thông tin cá nhân</a>
+                
+
+                <div class="manh-personal-footer">
+                    <img src="/uploads/<%= user.avatar %>" class="manh-personal-img" alt="Ảnh cá nhân" class="rounded-circle" width="45" height="45">
+                    <p><%= user.name %></p>
+                    <p><%= user.mail %></p>
+                    <form action="/logout" method="post" class="nav-logout">
+                        <button type="submit" class="dropdown-item"><i class="fa-solid fa-right-from-bracket manh-personal-icon"></i> Thoát</button>
+                    </form>
+                </div>
+        </div>
+        <div class="manh-movie manh-personal-movie">
+            <div class="container text-center">
+            <h4>Yêu thích</h4>
+                <div class="row">
+                    <div class="col manh-flex">
+                    <% if (favorites && favorites.length > 0) { %>
+                        <% favorites.forEach(movie => { %>
+                        <div class="card">
+                            <a href="/<%= movie.slug %>" class="card-inner">
+                                <div class="card-front">
+                                    <img src="<%= movie.poster_url %>" style="height: 20rem; border-radius: 0.5rem;" class="card-img-top" alt="<%= movie.name %>">
+                                </div>
+                                <div class="card-back">
+                                    <h5 class="card-title-back"><%= movie.name %></h5>
+                                    <p class="card-text"><%= movie.origin_name %></p>
+                                </div>
+                            </a>
+                            <form action="/personal/favorite/<%= movie.slug %>?_method=DELETE" method="post" class="manh-delete-favorite">
+                                <button type="submit">
+                                <i class="fa-solid fa-xmark manh-delete-favorite"></i>
+                                </button>
+                            </form>
+                        </div>
+                        <% }) %>
+                    <% } else { %>
+                        <p class="text-center">Không có phim yêu thích nào.</p>
+                    <% } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        
+    </div>
+</div>
+

@@ -1,0 +1,106 @@
+.manh-personal-content{
+    display: flex;
+    margin: 0 0 52px 0;
+}
+
+.manh-personal-nav{
+    width: 20%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: #25272f;
+    border-radius: 8px;
+    height: 100vh;
+    position: relative; 
+}
+
+.manh-personal-nav a, .nav-logout{
+    border-bottom: 1px solid #444;
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.manh-personal-nav a:hover, .nav-logout:hover{
+    color: #0d6efd;
+}
+
+.manh-personal-icon{
+    padding: 0 12px 0 0;
+}
+
+.manh-personal-footer{
+    position:absolute;
+    padding: 12px 16px;
+    text-align: center;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.manh-personal-footer p {
+    margin: 2px 0;
+    color: #ccc;
+}
+
+.manh-personal-img{
+    border-radius: 50%;
+}
+
+.manh-personal-img:hover{
+    opacity: 0.8;
+}
+
+.manh-personal-movie{
+    width: 80%;
+}
+
+.manh-personal-active{
+    color: #0d6efd;
+}
+
+.manh-personal-profile{
+    padding: 0px 30px;
+    display: flex;
+    height: 80%;
+}
+
+.profile-desc{
+    color: #ccc;
+    font-size: 14px;
+}
+
+.manh-profile{
+    width: 50%;
+}
+
+.manh-profile-label{
+    margin-top: 24px;
+    color: #ccc;
+}
+
+.btn-update-profile{
+    margin-top: 50px;
+}
+
+.manh-profile-avt{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 0 0 30px;
+}
+
+.manh-profile-avt-label{
+    margin: 12px 0;
+}
+
+@media (max-width: 768px) {
+    .manh-personal-nav{
+        display: none;
+    }
+    .manh-personal-movie{
+        width: 100%;
+    }
+}
