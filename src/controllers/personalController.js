@@ -1,5 +1,5 @@
-const Favorite = require('../models/Favorite');
-const History = require('../models/Movies-watched');
+const Favorite = require('../models/favorite');
+const History = require('../models/filmed');
 const User = require('../models/users');
 const {getPhimDetail} = require('../services/phimService');
 const moment = require("moment-timezone");
