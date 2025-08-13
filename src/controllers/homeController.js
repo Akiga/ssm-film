@@ -1,7 +1,7 @@
 const { getPhimList, getPhimDetail, getChuDe, getFilmCategory, getCountryCategory, search} = require('../services/phimService');
 const userModel = require('../models/users');
-const filmModel = require('../models/Movies-watched');
-const favoriteModel = require('../models/Favorite');
+const filmModel = require('../models/movies-watched');
+const favoriteModel = require('../models/favorite');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
