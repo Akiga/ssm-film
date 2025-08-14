@@ -315,6 +315,10 @@ body{
   display: none;
 }
 
+.mobile-search{
+  display: none;
+}
+
 @media (max-width: 1024px) and (min-width: 769px) {
     .manh-nav{
     display: none;
@@ -325,7 +329,7 @@ body{
 }
 
 @media (max-width: 768px) {
-  .d-flex{
+  .computer-search{
     display: none !important;
   }
   .manh-nav{
@@ -339,9 +343,9 @@ body{
     height: auto;
   }
   .card-title{
-    font-size: 1rem;
+    margin-top: 4px;
+    font-size: 14px;
     font-weight: bold;
-    margin: 12px 0;
   }
   .mobile-card{
     display: block;
@@ -351,5 +355,31 @@ body{
   }
   .manh-title{
     font-size: 1rem;
+  }
+  .card {
+    background-color: transparent;
+    width: 8rem;
+    height: 16rem;
+  }
+  .mobile-title{
+    color: #fff;
+  }
+  .mobile-card-img{
+    height: 12rem; 
+    border-radius: 0.5rem;
+  }
+  .mobile-search{
+    display: block;
+    margin: 0 0 24px;
+  }
+  .manh-mobile-list{
+    display: inline-block;
+    margin-bottom: 12px;
+  }
+  .carousel-inner, .carousel-item, .mobile-slider-img{
+    height: 40vh !important;
+  }
+  .manh-slider{
+    margin-bottom: 2vh;
   }
 }
