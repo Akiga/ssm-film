@@ -48,7 +48,7 @@
                     <div class="col manh-flex">
                     <% if (favorites && favorites.length > 0) { %>
                         <% favorites.forEach(movie => { %>
-                        <div class="card">
+                        <div class="card computer-card">
                             <a href="/<%= movie.slug %>" class="card-inner">
                                 <div class="card-front">
                                     <img src="<%= movie.poster_url %>" style="height: 20rem; border-radius: 0.5rem;" class="card-img-top" alt="<%= movie.name %>">
@@ -64,6 +64,16 @@
                                 </button>
                             </form>
                         </div>
+
+                        <a href="/<%= movie.slug %>" class="card mobile-card">
+                            <img src="<%= movie.poster_url %>" class="card-img-top mobile-card-img" alt="<%= movie.name %>">
+                            <h5 class="card-title mobile-title"><%= movie.name %></h5>
+                            <form action="/personal/favorite/<%= movie.slug %>?_method=DELETE" method="post" class="manh-delete-favorite">
+                                <button type="submit">
+                                <i class="fa-solid fa-xmark manh-delete-favorite"></i>
+                                </button>
+                            </form>
+                        </a>
                         <% }) %>
                     <% } else { %>
                         <p class="text-center">Không có phim yêu thích nào.</p>

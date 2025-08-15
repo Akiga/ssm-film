@@ -25,21 +25,22 @@
                 <% if (histories && histories.length > 0) { %>
                     <% histories.forEach(movie => { %>
                     <div class="card computer-card">
-                        <a href="/<%= movie.slug %>" class="card-inner">
-                            <div class="card-front">
-                                <img src="<%= movie.poster_url %>" style="height: 20rem; border-radius: 0.5rem;" class="card-img-top" alt="<%= movie.name %>">
-                            </div>
-                            <div class="card-back">
-                                <h5 class="card-title-back"><%= movie.name %></h5>
-                                <p class="card-text"><%= movie.origin_name %></p>
-                            </div>
-                        </a>
-                    </div>
+                            <a href="/<%= movie.slug %>" class="card-inner">
+                                <div class="card-front">
+                                    <img src="<%= movie.poster_url %>" style="height: 20rem; border-radius: 0.5rem;" class="card-img-top" alt="<%= movie.name %>">
+                                </div>
+                                <div class="card-back">
+                                    <h5 class="card-title-back"><%= movie.name %></h5>
+                                    <p class="card-text"><%= movie.origin_name %></p>
+                                </div>
+                            </a>
+                        </div>
 
-                    <a href="/<%= movie.slug %>" class="card mobile-card">
-                        <img src="<%= movie.poster_url %>" class="card-img-top" alt="<%= movie.name %>" style="height: 20rem; border-radius: 0.5rem;">
-                        <h5 class="card-title"><%= movie.name %></h5>
-                    </a>
+                        <a href="/<%= movie.slug %>" class="card mobile-card">
+                            <img src="<%= movie.poster_url %>" class="card-img-top mobile-card-img" alt="<%= movie.name %>">
+                            <h5 class="card-title mobile-title"><%= movie.name %></h5>
+                            
+                        </a>
                     <% }) %>
                 <% } else { %>
                     <p class="text-center">Không có phim yêu thích nào.</p>
