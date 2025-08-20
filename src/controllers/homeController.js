@@ -2,9 +2,9 @@ const { getPhimList, getPhimDetail, getChuDe, getFilmCategory, getCountryCategor
 const userModel = require('../models/users');
 const filmModel = require('../models/filmed');
 const favoriteModel = require('../models/favorite');
+const guestModel = require('../models/filmForGuest');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const crypto = require('crypto');
 require('dotenv').config();
 class homeController{
     // Trang chủ
@@ -119,7 +119,26 @@ class homeController{
             console.error('Error retrieving user ID:', error);
             return res.status(500).json({ error: 'Internal server error' });
         }
-        
+    }
+
+    async watchFilmForGuest(req, res) {
+        const slug = req.params.slug
+        const episode = req.query.tap
+        const detailFilm = await getPhimDetail(slug)
+        const userId = Math.floor(Math.random() * 1000000); // Tạo ID ngẫu nhiên cho khách
+        try {
+            if (userId) {
+                const watchedFilm = new guestModel({userId: userId, slug: slug});
+                await watchedFilm.save();
+            }
+            res.render('pages/film',{
+            detailFilm,
+            episode
+            })
+        } catch (error) {
+            console.error('Error retrieving user ID:', error);
+            return res.render('pages/error', { error: 'Lỗi khi lưu thông tin phim đã xem' });
+        }
     }
 
     async register(req, res) {
@@ -151,7 +170,7 @@ class homeController{
             if(user && await bcrypt.compare(userLogin.password, user.password)) {
                 const token = jwt.sign({
                     id: user._id
-                }, process.env.JWT_SECRET, { expiresIn: '1h' });
+                }, process.env.JWT_SECRET, { expiresIn: '1d' });
                 return res.json({ token })
             } else {
                 return res.status(200).json({ error: 'Email hoặc mật khẩu không đúng' });

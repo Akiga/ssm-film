@@ -1,0 +1,115 @@
+<body>
+  <div class="d-flex">
+    <!-- Sidebar -->
+    <div class="sidebar p-2">
+      <a href="/admin/dashboard">📊 Dashboard</a>
+      <a href="/admin/users">👥 Quản lý User</a>
+      <a href="/admin/comments">💬 Bình luận</a>
+      <a href="/admin/stats">📈 Thống kê</a>
+      <a href="/admin/settings">⚙️ Cấu hình</a>
+    </div>
+
+    <!-- Nội dung -->
+    <div class="flex-grow-1 p-3 admin-bg">
+      <h1 class="mb-4">Dashboard Quản trị</h1>
+      <!-- Dashboard -->
+      <div class="row">
+        <div class="col-md-3">
+          <div class="text-bg-primary mb-3 admin-card">
+            <div class="card-body">
+              <h5 class="card-title">Người dùng</h5>
+              <p class="card-text fs-4"><%= countUsers %></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="text-bg-success mb-3 admin-card">
+            <div class="card-body">
+              <h5 class="card-title">Tổng lượt xem</h5>
+              <p class="card-text fs-4"><%= countFilmedAll %></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="text-bg-success mb-3 admin-card">
+            <div class="card-body">
+              <h5 class="card-title">Lượt xem hôm nay</h5>
+              <p class="card-text fs-4"><%= countFilmed %></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="text-bg-warning mb-3 admin-card">
+            <div class="card-body">
+              <h5 class="card-title">Phim hot</h5>
+              <p class="card-text fs-4"><%= detailFilm.movie.name %></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bảng quản lý User -->
+      <div class="mb-3">
+        <div class="card-header">👥 Quản lý User</div>
+        <div class="card-body">
+          <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+              <tr>
+                <th>ID</th>
+                <th>Tên</th>
+                <th>Email</th>
+                <th>Chức vụ</th>
+                <th>Hành động</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% userDetail.forEach((user, index) => { %>
+              <tr>
+                <td><%= index + 1 %></td>
+                <td><%= user.username %></td>
+                <td><%= user.email %></td>
+                <% if (user.role == 'user') { %>
+                <td><span class="badge bg-success">User</span></td>
+                <% } else { %>
+                <td><span class="badge bg-danger">Admin</span></td>
+                <% } %>
+                <td>
+                  <button class="btn btn-sm btn-warning">Khóa</button>
+                  <button class="btn btn-sm btn-danger">Xóa</button>
+                </td>
+              </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Biểu đồ -->
+      <div class="chart">
+        <div class="card-header" style="color: #000;">📈 Thống kê lượt xem</div>
+        <div class="card-body">
+          <canvas id="statsChart"></canvas>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    const ctx = document.getElementById('statsChart');
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['T1','T2','T3','T4','T5'],
+        datasets: [{
+          label: 'Lượt xem',
+          data: [1200, 1900, 3000, 500, 2000],
+          borderColor: 'rgb(75, 192, 192)',
+          tension: 0.2
+        }]
+      }
+    });
+  </script>
+</body>
+</html>

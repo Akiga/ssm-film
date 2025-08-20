@@ -16,6 +16,8 @@ router.get('/country/:slug', homeController.country);
 
 router.get('/film/:slug', homeController.watchFilm);
 
+router.get('/film/g/:slug', homeController.watchFilmForGuest);
+
 router.get('/:slug', homeController.detail)
 
 router.post('/register', homeController.register);

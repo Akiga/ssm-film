@@ -1,0 +1,38 @@
+
+<body>
+<div class="d-flex">
+  <div class="sidebar p-2">
+      <a href="/admin/dashboard">📊 Dashboard</a>
+      <a href="/admin/users">👥 Quản lý User</a>
+      <a href="/admin/comments">💬 Bình luận</a>
+      <a href="/admin/stats">📈 Thống kê</a>
+      <a href="/admin/settings">⚙️ Cấu hình</a>
+    </div>
+
+  <div class="flex-grow-1 p-3">
+
+    <div class="admin-card">
+      <div class="card-header" style="color: #000;">📈 Thống kê</div>
+      <div class="card-body">
+        <canvas id="chart"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const ctx = document.getElementById('chart');
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Phim A','Phim B','Phim C'],
+      datasets: [{
+        label: 'Lượt xem',
+        data: [5000,3000,7000],
+        backgroundColor: ['red','blue','green']
+      }]
+    }
+  });
+</script>
+</body>
+</html>

@@ -44,6 +44,39 @@
             </div>
             <div class="manh-detail-content-right">
                 <div class="manh-detail-content-right-in">
+                    <% if (!user) { %>
+                        <% if (detailFilm.movie.episode_total == '1') { %>
+                        <a href="/film/g/<%= detailFilm.movie.slug %>" class="xem mobile-xem">
+                            <button class="super-button">
+                                <span>Xem Ngay</span>
+                                <svg fill="none" viewBox="0 0 24 24" class="arrow">
+                                    <path
+                                    stroke-linejoin="round"
+                                    stroke-linecap="round"
+                                    stroke-width="2"
+                                    stroke="currentColor"
+                                    d="M5 12h14M13 6l6 6-6 6"
+                                    ></path>
+                                </svg>
+                            </button>
+                        </a>
+                        <% } else { %>
+                            <a href="/film/g/<%= detailFilm.movie.slug %>?tap=tap-01" class="xem mobile-xem">
+                            <button class="super-button">
+                                <span>Xem Ngay</span>
+                                <svg fill="none" viewBox="0 0 24 24" class="arrow">
+                                    <path
+                                    stroke-linejoin="round"
+                                    stroke-linecap="round"
+                                    stroke-width="2"
+                                    stroke="currentColor"
+                                    d="M5 12h14M13 6l6 6-6 6"
+                                    ></path>
+                                </svg>
+                            </button>
+                        </a>
+                    <% } }else { %>
+
                     <% if (detailFilm.movie.episode_total == '1') { %>
                     <a href="/film/<%= detailFilm.movie.slug %>" class="xem mobile-xem">
                         <button class="super-button">
@@ -60,7 +93,7 @@
                         </button>
                     </a>
                     <% } else { %>
-                        <a href="/film/<%= detailFilm.movie.slug %>?tap=01" class="xem mobile-xem">
+                        <a href="/film/<%= detailFilm.movie.slug %>?tap=tap-01" class="xem mobile-xem">
                         <button class="super-button">
                             <span>Xem Ngay</span>
                             <svg fill="none" viewBox="0 0 24 24" class="arrow">
@@ -74,7 +107,7 @@
                             </svg>
                         </button>
                     </a>
-                    <% } %>
+                    <% } }%>
                     <% if (!watchedFilm) { %>
                         <a href="/personal/favorite/<%= detailFilm.movie.slug %>" class="manh-detail-content-right-like">
                         <i class="fa-solid fa-heart" ></i>

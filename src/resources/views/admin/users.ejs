@@ -1,0 +1,32 @@
+
+<body>
+<div class="d-flex">
+  <div class="sidebar p-2">
+      <a href="/admin/dashboard">📊 Dashboard</a>
+      <a href="/admin/users">👥 Quản lý User</a>
+      <a href="/admin/comments">💬 Bình luận</a>
+      <a href="/admin/stats">📈 Thống kê</a>
+      <a href="/admin/settings">⚙️ Cấu hình</a>
+    </div>
+
+  <div class="flex-grow-1 p-3 admin-bg">
+    <div class="admin-card">
+      <div class="card-header">👥 Quản lý User</div>
+      <div class="card-body">
+        <table class="table table-bordered table-striped">
+          <thead class="table-dark">
+            <tr><th>ID</th><th>Tên</th><th>Email</th><th>Trạng thái</th><th>Hành động</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>Nguyễn Văn A</td><td>a@example.com</td><td><span class="badge bg-success">Hoạt động</span></td>
+              <td><button class="btn btn-sm btn-warning">Khóa</button> <button class="btn btn-sm btn-danger">Xóa</button></td></tr>
+            <tr><td>2</td><td>Trần Thị B</td><td>b@example.com</td><td><span class="badge bg-danger">Bị khóa</span></td>
+              <td><button class="btn btn-sm btn-success">Mở</button> <button class="btn btn-sm btn-danger">Xóa</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

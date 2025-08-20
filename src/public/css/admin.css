@@ -1,0 +1,27 @@
+
+  .sidebar {
+    min-height: 100vh;
+    background: #000;
+    color: #fff;
+    border-right: 1px solid #fff;
+  }
+  .sidebar a {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    padding: 10px 15px;
+  }
+  .sidebar a:hover {
+    background: #495057;
+  }
+
+  .admin-bg{
+    background: #343a40;
+  }
+  .chart{
+    background-color: #fff;
+  }
+  .admin-card{
+    padding: 4px 0;
+    border-radius: 8px;
+  }

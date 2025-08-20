@@ -104,7 +104,7 @@
     const banchieu = new URLSearchParams(window.location.search).get('banchieu') || '#Hà Nội (Vietsub)';
     if(le_bo === 'tv'){
         
-        const tap_phim =  'tap-<%= episode %>';
+        const tap_phim =  '<%= episode %>';
         for (const server of episodes) {
             for (const episode of server.server_data) {
             // Kiểm tra nếu slug của episode trùng với tap_phim
