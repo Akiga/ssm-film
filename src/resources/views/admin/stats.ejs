@@ -9,30 +9,102 @@
       <a href="/admin/settings">⚙️ Cấu hình</a>
     </div>
 
-  <div class="flex-grow-1 p-3">
+  <div class="flex-grow-1 p-3" style="width: 80%;">
+    <div class="statistical-flex">
+      <div class="admin-card statistical">
+      <div class="card-header" style="color: #000;">📈 Tỉ lệ thể loại phim</div>
+        <div class="card-body">
+          <canvas id="genreStats"></canvas>
+        </div>
+    </div>
 
-    <div class="admin-card">
-      <div class="card-header" style="color: #000;">📈 Thống kê</div>
-      <div class="card-body">
-        <canvas id="chart"></canvas>
-      </div>
+    <div class="admin-card statistical">
+      <div class="card-header" style="color: #000;">📈 Lượt xem theo tháng</div>
+        <div class="card-body">
+          <canvas id="monthlyViews"></canvas>
+        </div>
+    </div>
+
+    <div class="admin-card statistical">
+      <div class="card-header" style="color: #000;">🔥 Top phim nhiều lượt xem cho tài khoản đăng nhập</div>
+        <div class="card-body">
+         <canvas id="topFilms"></canvas>
+        </div>
+    </div>
+
+    <div class="admin-card statistical">
+      <div class="card-header" style="color: #000;">🔥 Top phim nhiều lượt xem cho tài khoản khách</div>
+        <div class="card-body">
+         <canvas id="topFilmsForG"></canvas>
+        </div>
     </div>
   </div>
+    </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-  const ctx = document.getElementById('chart');
-  new Chart(ctx, {
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    const genres = ['Hành động','Tình cảm','Kinh dị','Hoạt hình','Hài hước','Khác'];
+    const genreViews = [4000,2500,1500,1800,2200,1200];
+
+    const genreStats = document.getElementById('genreStats');
+    new Chart(genreStats, {
+      type: 'pie',
+      data: {
+        labels: genres,
+        datasets: [{
+          data: genreViews,
+          backgroundColor: ['#ff6384','#36a2eb','#ffce56','#4bc0c0','#9966ff','#ff9f40']
+        }]
+      }
+    });
+
+
+    const filmData = <%- JSON.stringify(listFilmForUser) %>;
+    // Tách labels (tên phim) và data (lượt xem)
+    const labels = filmData.map(f => f.name);
+    const data = filmData.map(f => f.totalViews);
+    new Chart(document.getElementById('topFilms'), {
     type: 'bar',
     data: {
-      labels: ['Phim A','Phim B','Phim C'],
+      labels: labels,
       datasets: [{
         label: 'Lượt xem',
-        data: [5000,3000,7000],
-        backgroundColor: ['red','blue','green']
+        data: data,
+        backgroundColor: ['#ff6384','#36a2eb','#ffce56','#4bc0c0']
       }]
     }
   });
-</script>
+
+
+  const filmDataForG = <%- JSON.stringify(listFilmForGuest) %>;
+    // Tách labels (tên phim) và data (lượt xem)
+  const labelsForG = filmDataForG.map(f => f.name);
+  const dataForG = filmDataForG.map(f => f.totalViews);
+  new Chart(document.getElementById('topFilmsForG'), {
+    type: 'bar',
+    data: {
+      labels: labelsForG,
+      datasets: [{
+        label: 'Lượt xem',
+        data: dataForG,
+        backgroundColor: ['#ff6384','#36a2eb','#ffce56','#4bc0c0']
+      }]
+    }
+  });
+
+  const viewByMonth = <%- JSON.stringify(viewsByMonth) %>;
+  new Chart(document.getElementById('monthlyViews'), {
+    type: 'line',
+    data: {
+      labels: ['T1','T2','T3','T4','T5','T6','T7','T8','T9','T10','T11','T12'],
+      datasets: [{
+        label: 'Lượt xem',
+        data: viewByMonth,
+        borderColor: 'rgb(75, 192, 192)',
+        tension: 0.2
+      }]
+    }
+  });
+  </script>
 </body>
 </html>

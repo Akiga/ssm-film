@@ -31,10 +31,14 @@
           </div>
         </div>
         <div class="col-md-3">
-          <div class="text-bg-success mb-3 admin-card">
+          <div class="text-bg-info mb-3 admin-card">
             <div class="card-body">
               <h5 class="card-title">Lượt xem hôm nay</h5>
+              <% if(countFilmed > 0) { %>
               <p class="card-text fs-4"><%= countFilmed %></p>
+              <% } else { %>
+              <p class="card-text fs-4">Chưa có lượt xem</p>
+              <% } %>
             </div>
           </div>
         </div>
@@ -42,7 +46,11 @@
           <div class="text-bg-warning mb-3 admin-card">
             <div class="card-body">
               <h5 class="card-title">Phim hot</h5>
+              <% if (detailFilm && detailFilm.movie) { %>
               <p class="card-text fs-4"><%= detailFilm.movie.name %></p>
+              <% } else { %>
+              <p class="card-text fs-4">Chưa có phim hot</p>
+              <% } %>
             </div>
           </div>
         </div>
@@ -50,7 +58,7 @@
 
       <!-- Bảng quản lý User -->
       <div class="mb-3">
-        <div class="card-header">👥 Quản lý User</div>
+        <div class="card-header">👥 Quản lý Admin</div>
         <div class="card-body">
           <table class="table table-bordered table-striped">
             <thead class="table-dark">
@@ -71,7 +79,7 @@
                 <% if (user.role == 'user') { %>
                 <td><span class="badge bg-success">User</span></td>
                 <% } else { %>
-                <td><span class="badge bg-danger">Admin</span></td>
+                <td><span class="badge bg-primary">Admin</span></td>
                 <% } %>
                 <td>
                   <button class="btn btn-sm btn-warning">Khóa</button>
@@ -98,13 +106,14 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
     const ctx = document.getElementById('statsChart');
+    const viewsByMonth = '<%= JSON.stringify(viewsByMonth) %>';
     new Chart(ctx, {
       type: 'line',
       data: {
-        labels: ['T1','T2','T3','T4','T5'],
+        labels: ['T1','T2','T3','T4','T5', 'T6', 'T7', 'T8', 'T9', 'T10', 'T11', 'T12'],
         datasets: [{
           label: 'Lượt xem',
-          data: [1200, 1900, 3000, 500, 2000],
+          data: JSON.parse(viewsByMonth),
           borderColor: 'rgb(75, 192, 192)',
           tension: 0.2
         }]

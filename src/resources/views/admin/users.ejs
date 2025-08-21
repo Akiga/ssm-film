@@ -11,17 +11,29 @@
 
   <div class="flex-grow-1 p-3 admin-bg">
     <div class="admin-card">
-      <div class="card-header">👥 Quản lý User</div>
+      <div class="card-header">👥 Quản lý User: Tổng (<%= countUsers %>)</div>
       <div class="card-body">
         <table class="table table-bordered table-striped">
           <thead class="table-dark">
-            <tr><th>ID</th><th>Tên</th><th>Email</th><th>Trạng thái</th><th>Hành động</th></tr>
+            <tr><th>ID</th><th>Tên</th><th>Email</th><th>Chức vụ</th><th>Hành động</th></tr>
           </thead>
           <tbody>
-            <tr><td>1</td><td>Nguyễn Văn A</td><td>a@example.com</td><td><span class="badge bg-success">Hoạt động</span></td>
-              <td><button class="btn btn-sm btn-warning">Khóa</button> <button class="btn btn-sm btn-danger">Xóa</button></td></tr>
-            <tr><td>2</td><td>Trần Thị B</td><td>b@example.com</td><td><span class="badge bg-danger">Bị khóa</span></td>
-              <td><button class="btn btn-sm btn-success">Mở</button> <button class="btn btn-sm btn-danger">Xóa</button></td></tr>
+            <% userDetail.forEach((user, index) => { %>
+              <tr>
+                <td><%= index + 1 %></td>
+                <td><%= user.username %></td>
+                <td><%= user.email %></td>
+                <% if (user.role == 'user') { %>
+                <td><span class="badge text-bg-success">User</span></td>
+                <% } else { %>
+                <td><span class="badge text-bg-primary">Admin</span></td>
+                <% } %>
+                <td>
+                  <button class="btn btn-sm btn-success">Phân quyền</button>
+                  <button class="btn btn-sm btn-danger">Xóa</button>
+                </td>
+              </tr>
+              <% }) %>
           </tbody>
         </table>
       </div>
