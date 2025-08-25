@@ -46,6 +46,6 @@ module.exports = async function (req, res, next) {
     console.error('Auth middleware unexpected error:', err);
     req.user = null;
     res.locals.user = null;
-    return res.status(500).render('pages/error', { error: 'Lỗi xác thực, vui lòng thử lại' });
+    return res.render('pages/error', { error: 'Lỗi xác thực, vui lòng thử lại' });
   }
 };

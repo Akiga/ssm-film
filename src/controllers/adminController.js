@@ -1,4 +1,4 @@
-const {getPhimDetail} = require('../services/phimService');
+const {getPhimDetail, getChuDe} = require('../services/phimService');
 const userModel = require('../models/users');
 const filmModel = require('../models/filmed');
 const filmForGuestModel = require('../models/filmForGuest');
@@ -89,7 +89,6 @@ class adminComtroller {
         res.render("admin/dashboard", { countUsers, countFilmed, countFilmedAll, detailFilm, userDetail, viewsByMonth });
     }
 
-
     settings(req, res) {
         res.render('admin/settings');
     }
@@ -145,10 +144,24 @@ class adminComtroller {
             });
         }
 
+
+        // Tỉ lệ loại phim
+        const listTopic = ['phim-le', 'phim-bo', 'hoat-hinh', 'tv-shows']
+        const totalEpisode = []
+        for (const topic of listTopic) {
+            // Gọi API hoặc query DB dựa vào slug
+            const res = await getChuDe(topic, 1)
+            // Lấy totalItems
+            totalEpisode.push(
+                res?.data?.params?.pagination?.totalItems || 0
+            )
+        }
+
         res.render('admin/stats', {
             viewsByMonth,
             listFilmForGuest,
-            listFilmForUser
+            listFilmForUser,
+            totalEpisode
         });
     }
 

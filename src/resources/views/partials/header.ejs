@@ -86,7 +86,9 @@
                 <li><a class="dropdown-item" href="/personal/favorite"><i class="fa-solid fa-heart manh-personal-icon" style="color: #d01111;"></i> Yêu thích</a></li>
                 <li><a class="dropdown-item" href="/personal/history"><i class="fa-solid fa-clock-rotate-left manh-personal-icon"></i> Lịch sử</a></li>
                 <li><a class="dropdown-item" href="/personal/profile"><i class="fa-solid fa-user manh-personal-icon"></i> Cá nhân</a></li>
+                <% if (user.role == 'admin') { %>
                 <li><a class="dropdown-item" href="/admin/dashboard"><i class="fa-solid fa-user manh-personal-icon"></i> Admin</a></li>
+                <% } %>
                 <li><hr class="dropdown-divider"></li>
                 <form action="/logout" method="post">
                     <button type="submit" class="dropdown-item">Đăng xuất <i class="fa-solid fa-right-from-bracket"></i></button>

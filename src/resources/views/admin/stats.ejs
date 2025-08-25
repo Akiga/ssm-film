@@ -43,8 +43,8 @@
 </div>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
-    const genres = ['Hành động','Tình cảm','Kinh dị','Hoạt hình','Hài hước','Khác'];
-    const genreViews = [4000,2500,1500,1800,2200,1200];
+    const genres = ['Phim lẻ', 'Phim bộ', 'Hoạt hình', 'TV shows'];
+    const genreViews = [<%= totalEpisode %>];
 
     const genreStats = document.getElementById('genreStats');
     new Chart(genreStats, {
@@ -53,7 +53,7 @@
         labels: genres,
         datasets: [{
           data: genreViews,
-          backgroundColor: ['#ff6384','#36a2eb','#ffce56','#4bc0c0','#9966ff','#ff9f40']
+          backgroundColor: ['#ff6384','#36a2eb','#ffce56','#4bc0c0']
         }]
       }
     });
