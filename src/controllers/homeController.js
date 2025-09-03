@@ -10,8 +10,16 @@ class homeController{
     // Trang chủ
     async home(req, res) {
         const movies = await getPhimList();
+        const phimLe = await getChuDe('phim-le', 1, 10);
+        const phimBo = await getChuDe('phim-bo', 1, 10);
+        const hoatHinh = await getChuDe('hoat-hinh', 1, 10);
+        const tvShows = await getChuDe('tv-shows', 1, 10);
         res.render('pages/index',{
             movies,
+            phimLe,
+            phimBo,
+            hoatHinh,
+            tvShows
         });
     }
     // Trang danh sách phim
@@ -43,7 +51,7 @@ class homeController{
     async topic(req, res) {
         const page = parseInt(req.query.page) || 1;
         const slug = req.params.slug;
-        const movies = await getChuDe(slug, page);
+        const movies = await getChuDe(slug, page, 50);
         res.render('pages/listFilm2',{
             movies,
             currentPage: page,

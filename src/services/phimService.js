@@ -20,9 +20,9 @@ async function getPhimDetail(slug){
   }
 }
 
-async function getChuDe(chuDe, Page = 1 ){
+async function getChuDe(chuDe, Page = 1, limit){
   try{
-    const res = await axios.get(`${process.env.MOVIE_API_BASE_URL}/v1/api/danh-sach/${chuDe}?page=${Page}&sort_field=year&sort_type=desc&sort_lang=&category=&country=&year=&limit=50`)
+    const res = await axios.get(`${process.env.MOVIE_API_BASE_URL}/v1/api/danh-sach/${chuDe}?page=${Page}&sort_field=year&sort_type=desc&sort_lang=&category=&country=&year=&limit=${limit}}`)
     return res.data
   }catch(error){
     console.log('Lấy chi tiết phim thất bại', error)

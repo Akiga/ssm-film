@@ -197,6 +197,154 @@
                     <a href="/list" class="btn btn-outline-primary manh-mobile-list">Xem thêm</a>
                 </div>
             </div>
+
+            <h2 class="manh-title">Top phim lẻ
+                <a class="example_f" href="/list"><span><i class="fa-solid fa-forward"></i></span></a>
+            </h2>
+
+            <div class="manh-movie">
+                <div class="container text-center">
+                    <div class="row">
+                        <div class="col manh-flex">
+                        <% if (phimLe.data.items.length > 0) { %>
+                            <% phimLe.data.items.forEach(movie => { %>
+                                <div class="card computer-card">
+                                    <a href="/<%= movie.slug %>" class="card-inner">
+                                        <div class="card-front">
+                                            <img src="https://phimimg.com/<%= movie.poster_url %>" style="height: 20rem; border-radius: 0.5rem;" class="card-img-top" alt="<%= movie.name %>">
+                                        </div>
+                                        <div class="card-back">
+                                            <h5 class="card-title-back"><%= movie.name %></h5>
+                                            <p class="card-text"><%= movie.origin_name %></p>
+                                        </div>
+                                    </a>
+                                </div>
+
+                                <a href="/<%= movie.slug %>" class="card mobile-card">
+                                    <img src="https://phimimg.com/<%= movie.poster_url %>" class="card-img-top mobile-card-img" alt="<%= movie.name %>">
+                                    <h5 class="card-title mobile-title"><%= movie.name %></h5>
+                                </a>
+                        <% }) %>
+                        <% } else { %>
+                        <p>Không có phim nào để hiển thị.</p>
+                        <% } %>
+                        </div>
+                    </div>
+
+                    <a href="/list" class="btn btn-outline-primary manh-mobile-list">Xem thêm</a>
+                </div>
+            </div>
+
+            <h2 class="manh-title">Top phim bộ
+                <a class="example_f" href="/list"><span><i class="fa-solid fa-forward"></i></span></a>
+            </h2>
+
+            <div class="manh-movie">
+                <div class="container text-center">
+                    <div class="row">
+                        <div class="col manh-flex">
+                        <% if (phimBo.data.items.length > 0) { %>
+                            <% phimBo.data.items.forEach(movie => { %>
+                                <div class="card computer-card">
+                                    <a href="/<%= movie.slug %>" class="card-inner">
+                                        <div class="card-front">
+                                            <img src="https://phimimg.com/<%= movie.poster_url %>" style="height: 20rem; border-radius: 0.5rem;" class="card-img-top" alt="<%= movie.name %>">
+                                        </div>
+                                        <div class="card-back">
+                                            <h5 class="card-title-back"><%= movie.name %></h5>
+                                            <p class="card-text"><%= movie.origin_name %></p>
+                                        </div>
+                                    </a>
+                                </div>
+
+                                <a href="/<%= movie.slug %>" class="card mobile-card">
+                                    <img src="https://phimimg.com/<%= movie.poster_url %>" class="card-img-top mobile-card-img" alt="<%= movie.name %>">
+                                    <h5 class="card-title mobile-title"><%= movie.name %></h5>
+                                </a>
+                        <% }) %>
+                        <% } else { %>
+                        <p>Không có phim nào để hiển thị.</p>
+                        <% } %>
+                        </div>
+                    </div>
+
+                    <a href="/list" class="btn btn-outline-primary manh-mobile-list">Xem thêm</a>
+                </div>
+            </div>
+
+            <h2 class="manh-title">Anime siêu hot <i class="fa-solid fa-fire" style="color: #dd0e0e;"></i>
+                <a class="example_f" href="/list"><span><i class="fa-solid fa-forward"></i></span></a>
+            </h2>
+
+            <div class="manh-movie">
+                <div class="container text-center">
+                    <div class="row">
+                        <div class="col manh-flex">
+                        <% if (hoatHinh.data.items.length > 0) { %>
+                            <% hoatHinh.data.items.forEach(movie => { %>
+                                <div class="card computer-card">
+                                    <a href="/<%= movie.slug %>" class="card-inner">
+                                        <div class="card-front">
+                                            <img src="https://phimimg.com/<%= movie.poster_url %>" style="height: 20rem; border-radius: 0.5rem;" class="card-img-top" alt="<%= movie.name %>">
+                                        </div>
+                                        <div class="card-back">
+                                            <h5 class="card-title-back"><%= movie.name %></h5>
+                                            <p class="card-text"><%= movie.origin_name %></p>
+                                        </div>
+                                    </a>
+                                </div>
+
+                                <a href="/<%= movie.slug %>" class="card mobile-card">
+                                    <img src="https://phimimg.com/<%= movie.poster_url %>" class="card-img-top mobile-card-img" alt="<%= movie.name %>">
+                                    <h5 class="card-title mobile-title"><%= movie.name %></h5>
+                                </a>
+                        <% }) %>
+                        <% } else { %>
+                        <p>Không có phim nào để hiển thị.</p>
+                        <% } %>
+                        </div>
+                    </div>
+
+                    <a href="/list" class="btn btn-outline-primary manh-mobile-list">Xem thêm</a>
+                </div>
+            </div>
+
+            <h2 class="manh-title">TV shows được yêu thích nhất
+                <a class="example_f" href="/list"><span><i class="fa-solid fa-forward"></i></span></a>
+            </h2>
+
+            <div class="manh-movie">
+                <div class="container text-center">
+                    <div class="row">
+                        <div class="col manh-flex">
+                        <% if (tvShows.data.items.length > 0) { %>
+                            <% tvShows.data.items.forEach(movie => { %>
+                                <div class="card computer-card">
+                                    <a href="/<%= movie.slug %>" class="card-inner">
+                                        <div class="card-front">
+                                            <img src="https://phimimg.com/<%= movie.poster_url %>" style="height: 20rem; border-radius: 0.5rem;" class="card-img-top" alt="<%= movie.name %>">
+                                        </div>
+                                        <div class="card-back">
+                                            <h5 class="card-title-back"><%= movie.name %></h5>
+                                            <p class="card-text"><%= movie.origin_name %></p>
+                                        </div>
+                                    </a>
+                                </div>
+
+                                <a href="/<%= movie.slug %>" class="card mobile-card">
+                                    <img src="https://phimimg.com/<%= movie.poster_url %>" class="card-img-top mobile-card-img" alt="<%= movie.name %>">
+                                    <h5 class="card-title mobile-title"><%= movie.name %></h5>
+                                </a>
+                        <% }) %>
+                        <% } else { %>
+                        <p>Không có phim nào để hiển thị.</p>
+                        <% } %>
+                        </div>
+                    </div>
+
+                    <a href="/list" class="btn btn-outline-primary manh-mobile-list">Xem thêm</a>
+                </div>
+            </div>
         </div>
     </main>
 </body>
