@@ -144,4 +144,39 @@
     } else {
       alert("Trình duyệt không hỗ trợ HLS.");
     }
+
+    // Thêm sự kiện bàn phím để tua nhanh và tạm dừng/phát video
+    document.addEventListener('keydown', function (e) {
+        if (e.code === 'ArrowRight') {
+            e.preventDefault();
+            video.currentTime += 10;
+        } else if (e.code === 'ArrowLeft') {
+            e.preventDefault();
+            video.currentTime -= 10;
+        } else if (e.code === 'Space') {
+            e.preventDefault();
+            if (video.paused) {
+            video.play();
+            } else {
+            video.pause();
+            }
+        }
+        });
+
+
+    const movieKey = "watch_progress_<%= detailFilm.movie.slug %>"; // key riêng cho phim
+
+    // Khi video chạy -> lưu lại thời gian
+    video.addEventListener('timeupdate', function () {
+    localStorage.setItem(movieKey, video.currentTime);
+    });
+
+    // Khi load lại trang -> nhảy tới vị trí đã xem
+    video.addEventListener('loadedmetadata', function () {
+    const savedTime = localStorage.getItem(movieKey);
+    if (savedTime) {
+        video.currentTime = parseFloat(savedTime);
+    }
+    });
+
   </script>

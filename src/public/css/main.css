@@ -153,6 +153,7 @@ body{
   height: 20rem;
   cursor: pointer;
   margin: 20px;
+  background-color: unset;
 }
 
 .card-inner {
@@ -181,7 +182,6 @@ body{
 
 .card-front {
   background: white;
-  border: 1px solid #e5e7eb;
 }
 
 .card-back {

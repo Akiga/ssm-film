@@ -229,6 +229,9 @@ body {
     text-align: center;
 }
 
+    .computer-none{
+        display: block;
+    }
     .manh-detail-genres{
         display: flex;
         flex-wrap: wrap;
