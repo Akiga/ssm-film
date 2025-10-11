@@ -16,7 +16,9 @@ const toast = require('./middlewares/toastMiddleware');
 const authen = require('./middlewares/authenticateMiddleware');
 const db = require('./config/config');
 
+// Method override for PUT and DELETE
 app.use(methodOverride('_method'))
+// Session
 app.set('trust proxy', 1) // trust first proxy
 app.use(session({
   secret: 'keyboard cat',
@@ -25,21 +27,30 @@ app.use(session({
   cookie: { secure: false }
 }))
 
+// Cookie parser
 app.use(cookieParser());
+
+// Connect to DB
 db.connectDB();
 
+// Body parser middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// Middleware to parse JSON and URL-encoded data
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Static files
 app.use(express.static(path.join(__dirname, "public")));
 
+// Template engine
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'resources', 'views'));
 app.use(expressLayouts);
 app.set('layout', 'layouts/main');
+
+// Custom middlewares
 app.use(categoryMiddleware)
 app.use(countryMiddleware)
 app.use(toast);
