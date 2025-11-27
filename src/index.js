@@ -9,6 +9,7 @@ const expressLayouts = require('express-ejs-layouts');
 const session = require('express-session')
 var cookieParser = require('cookie-parser')
 var methodOverride = require('method-override')
+
 const route = require('./routes');
 const categoryMiddleware = require('./middlewares/categoryMiddleware')
 const countryMiddleware = require('./middlewares/countryMiddleware')

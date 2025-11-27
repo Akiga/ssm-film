@@ -313,6 +313,7 @@ body{
 
 .mobile-card{
   display: none;
+  border: none;
 }
 
 .mobile-search{
