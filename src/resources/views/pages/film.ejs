@@ -1,8 +1,9 @@
-
 <body>
     <main class="manh-film">
         <% if(detailFilm.status === true) { %>
-        <a href="/<%= detailFilm.movie.slug %>" class="manh-film-back"><i class="fa-solid fa-angle-left manh-film-boder-radius"></i>Back</a>
+        <a href="/<%= detailFilm.movie.slug %>" class="manh-film-back"><i class="fa-solid fa-angle-left manh-film-boder-radius"></i>
+            <%= detailFilm.movie.name %> - tập <%= tap %>
+        </a>
 
         <video id="video" controls autoplay poster="<%= detailFilm.movie.thumb_url %>" playsinline></video>
 
@@ -105,7 +106,6 @@
     const banchieu = new URLSearchParams(window.location.search).get('banchieu') || '#Hà Nội (Vietsub)';
 
     if(le_bo === 'tv'){
-        
         const tap_phim =  '<%= episode %>';
         for (const server of episodes) {
             for (const episode of server.server_data) {
@@ -117,16 +117,20 @@
             }
             }
             if (videoSrc) break;
+            console.log(videoSrc);
+            
         }
     }else {
         for(const server of episodes){
             if (server.server_name === decodeURIComponent(banchieu)){
-                videoSrc = server.server_data[0]?.link_m3u8; // Lấy link_m3u8 từ server_data đầu tiên
+                videoSrc = server.server_data[0]?.link_m3u8;
                     break;
             }
         }
-        // videoSrc = '<%= detailFilm.episodes[0].server_data[0].link_m3u8 %>'
     }
+
+    console.log(videoSrc);
+    
 
     if (Hls.isSupported()) {
       const hls = new Hls();
@@ -145,7 +149,7 @@
       alert("Trình duyệt không hỗ trợ HLS.");
     }
 
-        // Thêm sự kiện bàn phím để tua nhanh và tạm dừng/phát video
+    // Thêm sự kiện bàn phím để tua nhanh và tạm dừng/phát video
     document.addEventListener('keydown', function (e) {
         if (e.code === 'ArrowRight') {
             e.preventDefault();
@@ -162,24 +166,5 @@
             }
         }
         });
-
-    const movieKey = "watch_progress_<%= detailFilm.movie.slug %>"; // key riêng cho phim
-    // Khi video chạy -> lưu lại thời gian
-    video.addEventListener('timeupdate', function () {
-        const item = {
-            value: video.currentTime,
-            expiry: Date.now() + 1 * 60 * 60 * 1000 // Lưu trong 1 giờ
-        }
-    localStorage.setItem(movieKey, JSON.stringify(item));
-    });
-
-    // Khi load lại trang -> nhảy tới vị trí đã xem
-    video.addEventListener('loadedmetadata', function () {
-    const savedTime = localStorage.getItem(movieKey);
-    const parsedData = JSON.parse(savedTime);
-    if (savedTime) {
-        video.currentTime = parseFloat(parsedData.value);
-    }
-    });
 
   </script>

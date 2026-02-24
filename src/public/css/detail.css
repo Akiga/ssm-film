@@ -159,6 +159,11 @@ body {
     padding: 10px;
 }
 
+.manh-detail-content-right-like, .manh-rate{
+    border: 2px solid #fff;
+    border-radius: 8px;
+}
+
 .manh-detail-content-right-like:hover{
     background-color: #ccc;
     color: #fff;
@@ -213,6 +218,12 @@ body {
     display: none;
 }
 
+.wrapper-mobile{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 @media (max-width: 768px) {
   .manh-detail-content{
     display: block;
@@ -262,5 +273,13 @@ body {
     }
     .manh-detail-actor-item{
         width: 45%;
+    }
+    
+    .wrapper-mobile{
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        align-items: center;
+        justify-content: center;
     }
 }

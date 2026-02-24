@@ -108,29 +108,34 @@
                         </button>
                     </a>
                     <% } }%>
-                    <% if (!watchedFilm) { %>
-                        <a href="/personal/favorite/<%= detailFilm.movie.slug %>" class="manh-detail-content-right-like">
-                        <i class="fa-solid fa-heart" ></i>
-                        <span>Yêu thích</span>
-                    </a>
-                    <% } else { %>
-                    <form action="/personal/favorite/<%= detailFilm.movie.slug %>?_method=DELETE" method="POST">
-                        <button type="submit" class="manh-detail-content-right-like manh-fasvorite-btn">
-                            <i class="fa-solid fa-heart" style="color: #f20707;"></i>
-                            <span>Yêu thích</span>
-                        </button>
-                    </form>
+                    <div class="wrapper">
                         
-                    <% } %>
-                    <a href="#" class="manh-detail-content-right-like">
-                        <i class="fa-solid fa-share"></i>
-                        <span>Chia sẻ</span>
-                    </a>
-                    <div class="manh-rate">
-                        <button type="button" class="btn manh-detail-rate" data-bs-toggle="modal" data-bs-target="#exampleModalTogglerate">
-                            <i class="fa-solid fa-thumbs-up"></i> / <i class="fa-solid fa-thumbs-down"></i>
-                            Đánh giá
-                        </button>
+                    </div>
+                    <div class="wrapper-mobile">
+                        <% if (!watchedFilm) { %>
+                            <a href="/personal/favorite/<%= detailFilm.movie.slug %>" class="manh-detail-content-right-like">
+                            <i class="fa-solid fa-heart" ></i>
+                            <span>Yêu thích</span>
+                        </a>
+                        <% } else { %>
+                        <form action="/personal/favorite/<%= detailFilm.movie.slug %>?_method=DELETE" method="POST">
+                            <button type="submit" class="manh-detail-content-right-like manh-fasvorite-btn">
+                                <i class="fa-solid fa-heart" style="color: #f20707;"></i>
+                                <span>Yêu thích</span>
+                            </button>
+                        </form>
+                            
+                        <% } %>
+                        <a href="#" class="manh-detail-content-right-like">
+                            <i class="fa-solid fa-share"></i>
+                            <span>Chia sẻ</span>
+                        </a>
+                        <div class="manh-rate">
+                            <button type="button" class="btn manh-detail-rate" data-bs-toggle="modal" data-bs-target="#exampleModalTogglerate">
+                                <i class="fa-solid fa-thumbs-up"></i> / <i class="fa-solid fa-thumbs-down"></i>
+                                Đánh giá
+                            </button>
+                        </div>
                     </div>
                     <div class="modal fade manh-z-index" id="exampleModalTogglerate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
@@ -185,7 +190,7 @@
                             <% } else { %>
 
                             <div class="manh-detail-phim-bo">
-                                <div class="dropdown">
+                                <!-- <div class="dropdown">
                                     <a class="btn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         <i class="fa-solid fa-bars"></i> Phần <span><%= detailFilm.movie.tmdb.season %></span>
                                     </a>
@@ -194,7 +199,7 @@
                                         <li><a class="dropdown-item" href="#">Danh sách các phần</a></li>
                                         <li><a class="dropdown-item" href="#">Phần <span><%= detailFilm.movie.tmdb.season %></a></li>
                                     </ul>
-                                </div>
+                                </div> -->
 
                                 <div class="manh-detail-content-right-episode-list">
                                     <% detailFilm.episodes[0].server_data.forEach(episodesItem => { %>
@@ -212,7 +217,7 @@
                                 <div class="manh-detail-actor">
                                     <% detailFilm.movie.actor.forEach(person => { %>
                                     <div class="manh-detail-actor-item">
-                                        <img src="/img/anh-avatar.jpg" alt="Diễn viên" class="img-thumbnail manh-detail-actor-img">
+                                        <img src="https://cellphones.com.vn/sforum/wp-content/uploads/2023/10/avatar-trang-4.jpg" alt="Diễn viên" class="img-thumbnail manh-detail-actor-img">
                                         <p class="manh-detail-actor-name"><%= person %></p>
                                     </div>
                                     <% }) %>
