@@ -107,54 +107,64 @@
 <!-- Thư viện HLS.js  hỗ trợ trình phát audio/video HLS -->
 <script>
 
-    const video = document.getElementById('video');
+    // const video = document.getElementById('video');
     const le_bo = '<%= detailFilm.movie.tmdb.type %>';
+    const le_bo1 = '<%= Number(detailFilm.movie.episode_total) > 1 %>';
     let videoSrc = null;
     const episodes = JSON.parse('<%- JSON.stringify(detailFilm.episodes) %>');
     const banchieu = new URLSearchParams(window.location.search).get('banchieu') || '#Hà Nội (Vietsub)';
 
-    if(le_bo === 'tv'){
-        const tap_phim =  '<%= episode %>';
-        for (const server of episodes) {
-            for (const episode of server.server_data) {
-            // Kiểm tra nếu slug của episode trùng với tap_phim
-            console.log(episode.slug, tap_phim);
-            if (episode.slug === tap_phim) {
-                videoSrc = episode.link_embed;
-                break;
-            }
-            }
-            if (videoSrc) break;
-        }
-    }else {
-        for(const server of episodes){
-            if (server.server_name === decodeURIComponent(banchieu)){
-                videoSrc = server.server_data[0]?.link_embed;
+    if(le_bo1 || le_bo === 'tv')
+        {
+            const tap_phim =  '<%= episode %>';
+            for (const server of episodes) {
+                for (const episode of server.server_data) {
+                // Kiểm tra nếu slug của episode trùng với tap_phim
+                console.log(episode.slug, tap_phim);
+                if (episode.slug === tap_phim) {
+                    videoSrc = episode.link_embed;
                     break;
+                }
+                }
+                if (videoSrc) break;
             }
         }
-    }
+    else 
+        {
+            for(const server of episodes){
+                if (server.server_name === decodeURIComponent(banchieu)){
+                    videoSrc = server.server_data[0]?.link_embed;
+                        break;
+                }
+            }
+        }
 
     const iframe = document.getElementById("videoFrame");
+    if (videoSrc) {
     iframe.src = videoSrc;
+    console.log("Video source:", videoSrc);
+} else {
+    console.log("Không tìm thấy videoSrc");
+}
+    
     
 
-    if (Hls.isSupported()) {
-      const hls = new Hls();
-      hls.loadSource(videoSrc);
-      hls.attachMedia(video);
-      hls.on(Hls.Events.MANIFEST_PARSED, function () {
-        video.play();
-      });
-    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-      // For Safari (iOS/macOS)
-      video.src = videoSrc;
-      video.addEventListener('loadedmetadata', function () {
-        video.play();
-      });
-    } else {
-      alert("Trình duyệt không hỗ trợ HLS.");
-    }
+    // if (Hls.isSupported()) {
+    //   const hls = new Hls();
+    //   hls.loadSource(videoSrc);
+    //   hls.attachMedia(video);
+    //   hls.on(Hls.Events.MANIFEST_PARSED, function () {
+    //     video.play();
+    //   });
+    // } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+    //   // For Safari (iOS/macOS)
+    //   video.src = videoSrc;
+    //   video.addEventListener('loadedmetadata', function () {
+    //     video.play();
+    //   });
+    // } else {
+    //   alert("Trình duyệt không hỗ trợ HLS.");
+    // }
 
     // Thêm sự kiện bàn phím để tua nhanh và tạm dừng/phát video
     document.addEventListener('keydown', function (e) {
