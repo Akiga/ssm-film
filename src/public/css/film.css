@@ -1,4 +1,6 @@
-
+#videoFrame{
+    display: flex;
+}
 
 
 .manh-film{
@@ -35,7 +37,7 @@
 .manh-film-content{
     background-color: #000;
     color: #fff;
-    width: 90%;
+    width: 100%;
     margin: 0 auto;
     display: flex;
     justify-content: space-evenly;

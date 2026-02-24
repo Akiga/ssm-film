@@ -5,7 +5,15 @@
             <%= detailFilm.movie.name %> - tập <%= tap %>
         </a>
 
-        <video id="video" controls autoplay poster="<%= detailFilm.movie.thumb_url %>" playsinline></video>
+        <!-- <video id="video" controls autoplay poster="<%= detailFilm.movie.thumb_url %>" playsinline></video> -->
+
+        <iframe 
+            id="videoFrame"
+            width="100%" 
+            height="500px"
+            frameborder="0"
+            allowfullscreen>
+        </iframe>
 
         <div class="manh-film-content">
             <a href="#" class="manh-detail-content-right-like">
@@ -112,24 +120,23 @@
             // Kiểm tra nếu slug của episode trùng với tap_phim
             console.log(episode.slug, tap_phim);
             if (episode.slug === tap_phim) {
-                videoSrc = episode.link_m3u8;
+                videoSrc = episode.link_embed;
                 break;
             }
             }
             if (videoSrc) break;
-            console.log(videoSrc);
-            
         }
     }else {
         for(const server of episodes){
             if (server.server_name === decodeURIComponent(banchieu)){
-                videoSrc = server.server_data[0]?.link_m3u8;
+                videoSrc = server.server_data[0]?.link_embed;
                     break;
             }
         }
     }
 
-    console.log(videoSrc);
+    const iframe = document.getElementById("videoFrame");
+    iframe.src = videoSrc;
     
 
     if (Hls.isSupported()) {
