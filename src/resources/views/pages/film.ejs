@@ -2,7 +2,7 @@
     <main class="manh-film">
         <% if(detailFilm.status === true) { %>
         <a href="/<%= detailFilm.movie.slug %>" class="manh-film-back"><i class="fa-solid fa-angle-left manh-film-boder-radius"></i>
-            <%= detailFilm.movie.name %> - tập <%= tap %>
+                        <%= detailFilm.movie.name %> - tập <%= tap %>
         </a>
 
         <!-- <video id="video" controls autoplay poster="<%= detailFilm.movie.thumb_url %>" playsinline></video> -->
@@ -106,16 +106,25 @@
 
 <!-- Thư viện HLS.js  hỗ trợ trình phát audio/video HLS -->
 <script>
-
-    // const video = document.getElementById('video');
+    const video = document.getElementById('video');
     const le_bo = '<%= detailFilm.movie.tmdb.type %>';
-    const le_bo1 = '<%= Number(detailFilm.movie.episode_total) > 1 %>';
     let videoSrc = null;
     const episodes = JSON.parse('<%- JSON.stringify(detailFilm.episodes) %>');
     const banchieu = new URLSearchParams(window.location.search).get('banchieu') || '#Hà Nội (Vietsub)';
 
-    if(le_bo1 || le_bo === 'tv')
+    if(le_bo === 'movie')
         {
+            console.log('le');
+            for(const server of episodes){
+                if (server.server_name === decodeURIComponent(banchieu)){
+                    videoSrc = server.server_data[0]?.link_embed;
+                        break;
+                }
+            }
+        }
+    else 
+        {
+            console.log('bo');
             const tap_phim =  '<%= episode %>';
             for (const server of episodes) {
                 for (const episode of server.server_data) {
@@ -129,15 +138,6 @@
                 if (videoSrc) break;
             }
         }
-    else 
-        {
-            for(const server of episodes){
-                if (server.server_name === decodeURIComponent(banchieu)){
-                    videoSrc = server.server_data[0]?.link_embed;
-                        break;
-                }
-            }
-        }
 
     const iframe = document.getElementById("videoFrame");
     if (videoSrc) {
@@ -149,22 +149,22 @@
     
     
 
-    // if (Hls.isSupported()) {
-    //   const hls = new Hls();
-    //   hls.loadSource(videoSrc);
-    //   hls.attachMedia(video);
-    //   hls.on(Hls.Events.MANIFEST_PARSED, function () {
-    //     video.play();
-    //   });
-    // } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-    //   // For Safari (iOS/macOS)
-    //   video.src = videoSrc;
-    //   video.addEventListener('loadedmetadata', function () {
-    //     video.play();
-    //   });
-    // } else {
-    //   alert("Trình duyệt không hỗ trợ HLS.");
-    // }
+    if (Hls.isSupported()) {
+      const hls = new Hls();
+      hls.loadSource(videoSrc);
+      hls.attachMedia(video);
+      hls.on(Hls.Events.MANIFEST_PARSED, function () {
+        video.play();
+      });
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      // For Safari (iOS/macOS)
+      video.src = videoSrc;
+      video.addEventListener('loadedmetadata', function () {
+        video.play();
+      });
+    } else {
+      alert("Trình duyệt không hỗ trợ HLS.");
+    }
 
     // Thêm sự kiện bàn phím để tua nhanh và tạm dừng/phát video
     document.addEventListener('keydown', function (e) {

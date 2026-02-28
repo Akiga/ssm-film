@@ -104,11 +104,15 @@ class homeController{
         })
     }
 
-    async watchFilm(req, res) {
+    async watchFilm(req, res, next) {
         const slug = req.params.slug
         const episode = req.query.tap
         const detailFilm = await getPhimDetail(slug)
-        const tapNumber = parseInt(episode.replace("tap-", ""), 10);
+        let tapNumber = null;
+
+        if (episode) {
+            tapNumber = parseInt(episode.replace("tap-", ""), 10);
+        }
         // Lưu thông tin phim đã xem vào cơ sở dữ liệu
         const userId = req.user ? req.user.id : null;
         try {
