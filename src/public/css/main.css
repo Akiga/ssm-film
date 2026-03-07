@@ -72,13 +72,12 @@ body{
 }
 
 .manh-slider img {
-    width: 100%;
     height: auto;
+    object-fit: cover;
 }
 
 /* Content */
 .manh-title{
-    text-align: center;
     font-size: 2rem;
     margin: 0 0 20px 30px;
     font-weight: bold;
@@ -321,10 +320,19 @@ body{
   display: none;
 }
 
+.manh-nav-mobile{
+  display: none;
+}
+
 @media (max-width: 1024px) and (min-width: 769px) {
     .manh-nav{
     display: none;
     }
+
+    .manh-nav-mobile{
+      display: block;
+    }
+
     .manh-flex{
       justify-content: center;
     }
@@ -336,6 +344,9 @@ body{
   }
   .manh-nav{
     display: none;
+  }
+  .manh-nav-mobile{
+    display: block;
   }
   .manh-flex, .manh-topic{
       justify-content: center;
