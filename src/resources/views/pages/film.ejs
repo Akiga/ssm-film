@@ -2,7 +2,7 @@
     <main class="manh-film">
         <% if(detailFilm.status === true) { %>
         <a href="/<%= detailFilm.movie.slug %>" class="manh-film-back"><i class="fa-solid fa-angle-left manh-film-boder-radius"></i>
-                        <%= detailFilm.movie.name %> - tập <%= tap %>
+            <%= detailFilm.movie.name %> - tập <%= tap %>
         </a>
 
         <!-- <video id="video" controls autoplay poster="<%= detailFilm.movie.thumb_url %>" playsinline></video> -->
@@ -45,7 +45,6 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                        <!-- <button type="submit" class="btn btn-primary">Đăng nhập</button> -->
                     </div>
                     </div>
                 </div>
@@ -109,7 +108,7 @@
     const video = document.getElementById('video');
     const le_bo = '<%= detailFilm.movie.tmdb.type %>';
     let videoSrc = null;
-    const episodes = JSON.parse('<%- JSON.stringify(detailFilm.episodes) %>');
+    const episodes = JSON.parse('<%- JSON.stringify(detailFilm.episodes).replace(/'/g, "\\'") %> ');
     const banchieu = new URLSearchParams(window.location.search).get('banchieu') || '#Hà Nội (Vietsub)';
 
     if(le_bo === 'movie')
@@ -141,11 +140,11 @@
 
     const iframe = document.getElementById("videoFrame");
     if (videoSrc) {
-    iframe.src = videoSrc;
-    console.log("Video source:", videoSrc);
-} else {
-    console.log("Không tìm thấy videoSrc");
-}
+        iframe.src = videoSrc;
+        console.log("Video source:", videoSrc);
+    } else {
+        console.log("Không tìm thấy videoSrc");
+    }
     
     
 
