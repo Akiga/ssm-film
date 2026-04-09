@@ -140,7 +140,12 @@ class homeController{
         const episode = req.query.tap
         const detailFilm = await getPhimDetail(slug)
         const userId = Math.floor(Math.random() * 1000000); // Tạo ID ngẫu nhiên cho khách
-        const tapNumber = parseInt(episode.replace("tap-", ""), 10);
+        let tapNumber = null;
+
+        if (episode) {
+            tapNumber = parseInt(episode.replace("tap-", ""), 10);
+        }
+
         try {
             if (userId) {
                 const watchedFilm = new guestModel({userId: userId, slug: slug});

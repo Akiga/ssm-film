@@ -82,7 +82,7 @@ class adminComtroller {
         // Thống kê lượt xem theo tháng
         const viewsByMonth = [];
         for (let i = 1; i <= 12; i++) {
-            const views = await getViewsByMonth(i, 2025);
+            const views = await getViewsByMonth(i, 2026);
             viewsByMonth.push(views);
         }
 

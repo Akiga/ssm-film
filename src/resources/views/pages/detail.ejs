@@ -168,7 +168,38 @@
                             <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Diễn viên</button>
                         </li>
                     </ul>
-                    <div class="tab-content" id="pills-tabContent">
+
+                    <% if (!user) { %>
+                        <div class="tab-content" id="pills-tabContent">
+                        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
+                            <% if (detailFilm.movie.tmdb.type === 'movie') { %>
+                            <div class="manh-detail-phim-le">
+                                <h2 class="manh-title">Các bản chiếu</h2>
+                                <% detailFilm.episodes.forEach(episodesItem => { %>
+                                    <a href="/film/g/<%= detailFilm.movie.slug %>?banchieu=<%= encodeURIComponent(episodesItem.server_name) %>" class="card text-bg-primary manh-topic-hover holographic-card mb-3" style="width: 15rem; height: 10rem;">
+                                        <div class="card-header">Bản chiếu: <%= detailFilm.movie.quality %></div>
+                                        <div class="card-body">
+                                            <p class="manh-topic-text"><%= episodesItem.server_name %> <i class="fa-solid fa-forward"></i></p>
+                                        </div>
+                                    </a>
+                                <% }) %>
+                            </div>
+                            <% } else { %>
+
+                            <div class="manh-detail-phim-bo">
+                                <div class="manh-detail-content-right-episode-list">
+                                    <% detailFilm.episodes[0].server_data.forEach(episodesItem => { %>
+                                    <a href="/film/g/<%= detailFilm.movie.slug %>?tap=<%= episodesItem.slug %>" class="episodesItem">
+                                        <i class="fa-solid fa-play"></i>
+                                        <%= episodesItem.name %>
+                                    </a>
+                                    <% }) %>
+                                </div>
+                            </div>
+                            <% } %>
+                        </div>
+                    <% } else { %>
+                        <div class="tab-content" id="pills-tabContent">
                         <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
                             <% if (detailFilm.movie.tmdb.type === 'movie') { %>
                             <div class="manh-detail-phim-le">
@@ -196,18 +227,7 @@
                             </div>
                             <% } %>
                         </div>
-                        <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
-                                <h2 class="manh-title" style="color: #000;">Diễn viên</h2>
-                                <div class="manh-detail-actor">
-                                    <% detailFilm.movie.actor.forEach(person => { %>
-                                    <div class="manh-detail-actor-item">
-                                        <img src="https://cellphones.com.vn/sforum/wp-content/uploads/2023/10/avatar-trang-4.jpg" alt="Diễn viên" class="img-thumbnail manh-detail-actor-img">
-                                        <p class="manh-detail-actor-name"><%= person %></p>
-                                    </div>
-                                    <% }) %>
-                            </div>
-                        </div>
-                    </div>
+                    <% } %>
                 </div>
     </main>
     <% } %>
