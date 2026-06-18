@@ -1,58 +1,66 @@
 <div class="manh-listFilm">
+    <!-- Movies Grid Section -->
     <div class="manh-movie">
         <div class="container text-center">
             <div class="row">
                 <div class="col manh-flex">
-                <% if (movies.data.items) { %>
-                    <% movies.data.items.forEach(movie => { %>
-                        <div class="card computer-card">
-                            <a href="/<%= movie.slug %>" class="card-inner">
-                                <div class="card-front">
-                                    <img src="https://phimimg.com/<%= movie.poster_url %>" style="height: 20rem; border-radius: 0.5rem;" class="card-img-top" alt="<%= movie.name %>">
-                                </div>
-                                <div class="card-back">
-                                    <h5 class="card-title-back"><%= movie.name %></h5>
-                                    <p class="card-text"><%= movie.origin_name %></p>
-                                </div>
-                            </a>
-                        </div>
+                    <% if (movies.data.items) { %>
+                        <% movies.data.items.forEach(movie => { %>
+                            <!-- Desktop Card -->
+                            <div class="card computer-card">
+                                <a href="/<%= movie.slug %>" class="card-inner">
+                                    <div class="card-front">
+                                        <img src="https://phimimg.com/<%= movie.poster_url %>" class="movie-poster" alt="<%= movie.name %>">
+                                    </div>
+                                    <div class="card-back">
+                                        <h5 class="card-title-back"><%= movie.name %></h5>
+                                        <p class="card-text"><%= movie.origin_name %></p>
+                                    </div>
+                                </a>
+                            </div>
 
-                        <a href="/<%= movie.slug %>" class="card mobile-card">
-                            <img src="https://phimimg.com/<%= movie.poster_url %>" class="card-img-top mobile-card-img" alt="<%= movie.name %>">
-                            <h5 class="card-title mobile-title"><%= movie.name %></h5>
-                        </a>
-                <% }) %>
-                <% } else { %>
-                <p>Không có phim nào để hiển thị.</p>
-                <% } %>
+                            <!-- Mobile Card -->
+                            <a href="/<%= movie.slug %>" class="card mobile-card">
+                                <img src="https://phimimg.com/<%= movie.poster_url %>" class="card-img-top mobile-card-img" alt="<%= movie.name %>">
+                                <h5 class="card-title mobile-title"><%= movie.name %></h5>
+                            </a>
+                        <% }) %>
+                    <% } else { %>
+                        <p class="no-movie-message">Không có phim nào để hiển thị.</p>
+                    <% } %>
                 </div>
             </div>
         </div>
     </div>
-    
-    <nav aria-label="Page navigation example">
+
+    <!-- Pagination Section -->
+    <% 
+        const baseUrl = country ? `/country/${country}` : categori ? `/category/${categori}` : `/list/${chuDe}`;
+    %>
+    <nav aria-label="Pagination">
         <ul class="pagination justify-content-center">
+            <!-- Previous Button -->
             <% if (currentPage > 1) { %>
-            <li class="page-item">
-                <a class="page-link" href="<%= country ? `/country/${country}` : categori ? `/category/${categori}` : `/list/${chuDe}` %>?page=<%= currentPage - 1 %>" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-            </li>
+                <li class="page-item">
+                    <a class="page-link" href="<%= baseUrl %>?page=<%= currentPage - 1 %>" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
             <% } %>
-            
-            <li class="page-item">
-                <a class="page-link"><%= currentPage%> / <%= totalPage%></a> 
+
+            <!-- Page Info -->
+            <li class="page-item disabled">
+                <a class="page-link"><%= currentPage %> / <%= totalPage %></a>
             </li>
 
-            <li class="page-item">
+            <!-- Next Button -->
             <% if (currentPage < totalPage) { %>
-
-            <a class="page-link" href="<%= country ? `/country/${country}` : categori ? `/category/${categori}` : `/list/${chuDe}` %>?page=<%= currentPage + 1 %>" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-            </a>
+                <li class="page-item">
+                    <a class="page-link" href="<%= baseUrl %>?page=<%= currentPage + 1 %>" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
             <% } %>
-
-            </li>
         </ul>
     </nav>
 </div>

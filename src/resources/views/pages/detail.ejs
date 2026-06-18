@@ -1,21 +1,36 @@
 <body>
     <% if (detailFilm.status === true) { %>
+    <%
+        // Người dùng đã đăng nhập -> đường dẫn "/film/..."
+        // Khách chưa đăng nhập   -> đường dẫn "/film/g/..."
+        const basePath = user ? '/film/' : '/film/g/';
+        const isSingleEpisode = detailFilm.movie.episode_total == '1';
+        const watchUrl = basePath + detailFilm.movie.slug + (isSingleEpisode ? '' : '?tap=tap-01');
+    %>
     <main class="main-detail">
+
+        <!-- Ảnh nền của phim -->
         <div class="manh-detail-bg-img">
             <img src="<%= detailFilm.movie.thumb_url %>" alt="<%= detailFilm.movie.name %>" class="manh-img-bg">
         </div>
+
         <div class="manh-detail-content">
+
+            <!-- ============ CỘT TRÁI: Poster + thông tin phim ============ -->
             <div class="manh-detail-content-left">
                 <img src="<%= detailFilm.movie.poster_url %>" alt="Ảnh phim" class="manh-detail-img">
+
                 <div class="manh-detail-content-left-content">
                     <h4><%= detailFilm.movie.name %></h4>
                     <p><%= detailFilm.movie.origin_name %></p>
+
                     <div class="manh-computer">
                         <ul class="manh-detail-genres">
                             <% detailFilm.movie.category.forEach(categoryItem => { %>
-                            <li><%= categoryItem.name %></li>
+                                <li><%= categoryItem.name %></li>
                             <% }) %>
                         </ul>
+
                         <p class="manh-detail-description"><%= detailFilm.movie.content %></p>
                         <p class="manh-detail-year"><span class="manh-detail-label">Năm:</span> <%= detailFilm.movie.year %></p>
                         <p class="manh-detail-duration"><span class="manh-detail-label">Thời gian:</span> <%= detailFilm.movie.time %></p>
@@ -23,13 +38,21 @@
                         <p class="manh-detail-director"><span class="manh-detail-label">Đạo diễn:</span> <%= detailFilm.movie.director %></p>
                     </div>
                 </div>
-<!-- -------------------------------------------------------------------------------------------- -->
+
+                <!-- Thông tin phim dạng accordion (chỉ hiển thị trên mobile) -->
                 <div class="accordion-flush computer-none" id="accordionFlushExample">
                     <div class="accordion-item">
                         <h2 class="accordion-header">
-                        <button class="accordion-button collapsed m-accordion" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                            Thông tin phim 
-                        </button>
+                            <button
+                                class="accordion-button collapsed m-accordion"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#flush-collapseOne"
+                                aria-expanded="false"
+                                aria-controls="flush-collapseOne"
+                            >
+                                Thông tin phim
+                            </button>
                         </h2>
                         <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                             <p class="manh-detail-description"><%= detailFilm.movie.content %></p>
@@ -41,94 +64,52 @@
                     </div>
                 </div>
             </div>
-            <!-- ----------------------------------------------------------------- -->
+
+            <!-- ============ CỘT PHẢI: Nút xem / yêu thích / chia sẻ / đánh giá / tập phim ============ -->
             <div class="manh-detail-content-right">
                 <div class="manh-detail-content-right-in">
-                    <% if (!user) { %>
-                        <% if (detailFilm.movie.episode_total == '1') { %>
-                        <a href="/film/g/<%= detailFilm.movie.slug %>" class="xem mobile-xem">
-                            <button class="super-button">
-                                <span>Xem Ngay</span>
-                                <svg fill="none" viewBox="0 0 24 24" class="arrow">
-                                    <path
+
+                    <!-- Nút "Xem Ngay" -->
+                    <a href="<%= watchUrl %>" class="xem mobile-xem">
+                        <button class="super-button">
+                            <span>Xem Ngay</span>
+                            <svg fill="none" viewBox="0 0 24 24" class="arrow">
+                                <path
                                     stroke-linejoin="round"
                                     stroke-linecap="round"
                                     stroke-width="2"
                                     stroke="currentColor"
                                     d="M5 12h14M13 6l6 6-6 6"
-                                    ></path>
-                                </svg>
-                            </button>
-                        </a>
-                        <% } else { %>
-                            <a href="/film/g/<%= detailFilm.movie.slug %>?tap=tap-01" class="xem mobile-xem">
-                            <button class="super-button">
-                                <span>Xem Ngay</span>
-                                <svg fill="none" viewBox="0 0 24 24" class="arrow">
-                                    <path
-                                    stroke-linejoin="round"
-                                    stroke-linecap="round"
-                                    stroke-width="2"
-                                    stroke="currentColor"
-                                    d="M5 12h14M13 6l6 6-6 6"
-                                    ></path>
-                                </svg>
-                            </button>
-                        </a>
-                    <% } }else { %>
-                    <% if (detailFilm.movie.episode_total == '1') { %>
-                    <a href="/film/<%= detailFilm.movie.slug %>" class="xem mobile-xem">
-                        <button class="super-button">
-                            <span>Xem Ngay</span>
-                            <svg fill="none" viewBox="0 0 24 24" class="arrow">
-                                <path
-                                stroke-linejoin="round"
-                                stroke-linecap="round"
-                                stroke-width="2"
-                                stroke="currentColor"
-                                d="M5 12h14M13 6l6 6-6 6"
                                 ></path>
                             </svg>
                         </button>
                     </a>
-                    <% } else { %>
-                        <a href="/film/<%= detailFilm.movie.slug %>?tap=tap-01" class="xem mobile-xem">
-                        <button class="super-button">
-                            <span>Xem Ngay</span>
-                            <svg fill="none" viewBox="0 0 24 24" class="arrow">
-                                <path
-                                stroke-linejoin="round"
-                                stroke-linecap="round"
-                                stroke-width="2"
-                                stroke="currentColor"
-                                d="M5 12h14M13 6l6 6-6 6"
-                                ></path>
-                            </svg>
-                        </button>
-                    </a>
-                    <% } }%>
 
                     <div class="wrapper"></div>
 
                     <div class="wrapper-mobile">
+                        <!-- Nút Yêu thích -->
                         <% if (!watchedFilm) { %>
                             <a href="/personal/favorite/<%= detailFilm.movie.slug %>" class="manh-detail-content-right-like">
-                            <i class="fa-solid fa-heart" ></i>
-                            <span>Yêu thích</span>
-                        </a>
-                        <% } else { %>
-                        <form action="/personal/favorite/<%= detailFilm.movie.slug %>?_method=DELETE" method="POST">
-                            <button type="submit" class="manh-detail-content-right-like manh-fasvorite-btn">
-                                <i class="fa-solid fa-heart" style="color: #f20707;"></i>
+                                <i class="fa-solid fa-heart"></i>
                                 <span>Yêu thích</span>
-                            </button>
-                        </form>
-                            
+                            </a>
+                        <% } else { %>
+                            <form action="/personal/favorite/<%= detailFilm.movie.slug %>?_method=DELETE" method="POST">
+                                <button type="submit" class="manh-detail-content-right-like manh-fasvorite-btn">
+                                    <i class="fa-solid fa-heart" style="color: #f20707;"></i>
+                                    <span>Yêu thích</span>
+                                </button>
+                            </form>
                         <% } %>
+
+                        <!-- Nút Chia sẻ -->
                         <a href="#" class="manh-detail-content-right-like">
                             <i class="fa-solid fa-share"></i>
                             <span>Chia sẻ</span>
                         </a>
+
+                        <!-- Nút Đánh giá -->
                         <div class="manh-rate">
                             <button type="button" class="btn manh-detail-rate" data-bs-toggle="modal" data-bs-target="#exampleModalTogglerate">
                                 <i class="fa-solid fa-thumbs-up"></i> / <i class="fa-solid fa-thumbs-down"></i>
@@ -137,150 +118,132 @@
                         </div>
                     </div>
 
-                <div class="modal fade manh-z-index" id="exampleModalTogglerate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Đánh giá</h1>
-                        
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        
+                    <!-- Modal: Đánh giá phim -->
+                    <div class="modal fade manh-z-index" id="exampleModalTogglerate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Đánh giá</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <h4>Hệ thống đang trong quá trình phát triển</h4>
+                                    <p>Vui lòng quay lại sau để đánh giá phim này.</p>
+                                    <p>Chân thành cảm ơn sự quan tâm của bạn!</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="modal-body">
-                        <h4>Hệ thống đang trong quá trình phát triển</h4>
-                        <p>Vui lòng quay lại sau để đánh giá phim này.</p>
-                        <p>Chân thành cảm ơn sự quan tâm của bạn!</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                    </div>
-                    </div>
-                    </div>
-                </div>
                 </div>
 
+                <!-- ============ Tabs: Tập phim / Diễn viên ============ -->
                 <div class="manh-detail-content-right-episode">
                     <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Tập phim</button>
+                            <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">
+                                Tập phim
+                            </button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Diễn viên</button>
+                            <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">
+                                Diễn viên
+                            </button>
                         </li>
                     </ul>
 
-                    <% if (!user) { %>
-                        <div class="tab-content" id="pills-tabContent">
+                    <div class="tab-content" id="pills-tabContent">
                         <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
                             <% if (detailFilm.movie.tmdb.type === 'movie') { %>
-                            <div class="manh-detail-phim-le">
-                                <h2 class="manh-title">Các bản chiếu</h2>
-                                <% detailFilm.episodes.forEach(episodesItem => { %>
-                                    <a href="/film/g/<%= detailFilm.movie.slug %>?banchieu=<%= encodeURIComponent(episodesItem.server_name) %>" class="card text-bg-primary manh-topic-hover holographic-card mb-3" style="width: 15rem; height: 10rem;">
-                                        <div class="card-header">Bản chiếu: <%= detailFilm.movie.quality %></div>
-                                        <div class="card-body">
-                                            <p class="manh-topic-text"><%= episodesItem.server_name %> <i class="fa-solid fa-forward"></i></p>
-                                        </div>
-                                    </a>
-                                <% }) %>
-                            </div>
-                            <% } else { %>
-
-                            <div class="manh-detail-phim-bo">
-                                <div class="manh-detail-content-right-episode-list">
-                                    <% detailFilm.episodes[0].server_data.forEach(episodesItem => { %>
-                                    <a href="/film/g/<%= detailFilm.movie.slug %>?tap=<%= episodesItem.slug %>" class="episodesItem">
-                                        <i class="fa-solid fa-play"></i>
-                                        <%= episodesItem.name %>
-                                    </a>
+                                <!-- Phim lẻ: liệt kê các bản chiếu -->
+                                <div class="manh-detail-phim-le">
+                                    <h2 class="manh-title">Các bản chiếu</h2>
+                                    <% detailFilm.episodes.forEach(episodesItem => { %>
+                                        <a
+                                            href="<%= basePath %><%= detailFilm.movie.slug %>?banchieu=<%= encodeURIComponent(episodesItem.server_name) %>"
+                                            class="card text-bg-primary manh-topic-hover holographic-card mb-3"
+                                            style="width: 15rem; height: 10rem;"
+                                        >
+                                            <div class="card-header">Bản chiếu: <%= detailFilm.movie.quality %></div>
+                                            <div class="card-body">
+                                                <p class="manh-topic-text"><%= episodesItem.server_name %> <i class="fa-solid fa-forward"></i></p>
+                                            </div>
+                                        </a>
                                     <% }) %>
                                 </div>
-                            </div>
-                            <% } %>
-                        </div>
-                    <% } else { %>
-                        <div class="tab-content" id="pills-tabContent">
-                        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
-                            <% if (detailFilm.movie.tmdb.type === 'movie') { %>
-                            <div class="manh-detail-phim-le">
-                                <h2 class="manh-title">Các bản chiếu</h2>
-                                <% detailFilm.episodes.forEach(episodesItem => { %>
-                                    <a href="/film/<%= detailFilm.movie.slug %>?banchieu=<%= encodeURIComponent(episodesItem.server_name) %>" class="card text-bg-primary manh-topic-hover holographic-card mb-3" style="width: 15rem; height: 10rem;">
-                                        <div class="card-header">Bản chiếu: <%= detailFilm.movie.quality %></div>
-                                        <div class="card-body">
-                                            <p class="manh-topic-text"><%= episodesItem.server_name %> <i class="fa-solid fa-forward"></i></p>
-                                        </div>
-                                    </a>
-                                <% }) %>
-                            </div>
                             <% } else { %>
-
-                            <div class="manh-detail-phim-bo">
-                                <div class="manh-detail-content-right-episode-list">
-                                    <% detailFilm.episodes[0].server_data.forEach(episodesItem => { %>
-                                    <a href="/film/<%= detailFilm.movie.slug %>?tap=<%= episodesItem.slug %>" class="episodesItem">
-                                        <i class="fa-solid fa-play"></i>
-                                        <%= episodesItem.name %>
-                                    </a>
-                                    <% }) %>
+                                <!-- Phim bộ: liệt kê các tập -->
+                                <div class="manh-detail-phim-bo">
+                                    <div class="manh-detail-content-right-episode-list">
+                                        <% detailFilm.episodes[0].server_data.forEach(episodesItem => { %>
+                                            <a href="<%= basePath %><%= detailFilm.movie.slug %>?tap=<%= episodesItem.slug %>" class="episodesItem">
+                                                <i class="fa-solid fa-play"></i>
+                                                <%= episodesItem.name %>
+                                            </a>
+                                        <% }) %>
+                                    </div>
                                 </div>
-                            </div>
                             <% } %>
                         </div>
-                    <% } %>
+                    </div>
                 </div>
+
+            </div>
+        </div>
     </main>
     <% } %>
 </body>
 
 
-<!-- Toast Messages -->
-<% if(successMessage) { %>
+<!-- ============ Toast thông báo ============ -->
+<% if (successMessage) { %>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             var toastEl = document.querySelector('.toast');
             var toast = new bootstrap.Toast(toastEl);
             toast.show();
         });
-        setTimeout(function() {
+        setTimeout(function () {
             var toastEl = document.querySelector('.toast');
             var toast = bootstrap.Toast.getInstance(toastEl);
             if (toast) {
                 toast.hide();
             }
-        }, 3000); // 3 seconds
+        }, 3000); // 3 giây
     </script>
     <div class="toast align-items-center bg-success" role="alert" aria-live="assertive" aria-atomic="true" style="position: fixed; top: 20px; right: 20px; z-index: 1050;">
-        <div class="d-flex"> 
+        <div class="d-flex">
             <div class="toast-body">
                 <%= successMessage %>
             </div>
             <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>  
+        </div>
     </div>
-    <% } %>
+<% } %>
 
-<% if(errorMessage) { %>
+<% if (errorMessage) { %>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             var toastEl = document.querySelector('.toast');
             var toast = new bootstrap.Toast(toastEl);
             toast.show();
         });
-        setTimeout(function() {
+        setTimeout(function () {
             var toastEl = document.querySelector('.toast');
             var toast = bootstrap.Toast.getInstance(toastEl);
             if (toast) {
                 toast.hide();
             }
-        }, 3000); // 3 seconds
+        }, 3000); // 3 giây
     </script>
     <div class="toast align-items-center bg-danger" role="alert" aria-live="assertive" aria-atomic="true" style="position: fixed; top: 20px; right: 20px; z-index: 1050;">
-        <div class="d-flex"> 
+        <div class="d-flex">
             <div class="toast-body">
                 <%= errorMessage %>
             </div>
             <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>  
+        </div>
     </div>
-    <% } %>
+<% } %>
