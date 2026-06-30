@@ -1,6 +1,6 @@
 require('dotenv').config();
-// const dns = require('dns');
-// dns.setServers(['8.8.8.8', '1.1.1.1']);
+const dns = require('dns');
+dns.setServers(['8.8.8.8', '1.1.1.1']);
 const express = require('express');
 const app = express();
 const compression = require("compression");
@@ -24,7 +24,7 @@ app.use(methodOverride('_method'))
 // Session
 app.set('trust proxy', 1) // trust first proxy
 app.use(session({
-  secret: process.env.SESSION_SECRET,
+  secret: 'keyboard cat',
   resave: false,
   saveUninitialized: false,
   cookie: { secure: false }
