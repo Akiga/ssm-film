@@ -1,8 +1,9 @@
 require('dotenv').config();
-
+const dns = require('dns');
+dns.setServers(['8.8.8.8', '1.1.1.1']);
 const express = require('express');
 const app = express();
-const bodyParser = require('body-parser');
+const compression = require("compression");
 const port = process.env.PORT || 3001;
 const path = require('path');
 const expressLayouts = require('express-ejs-layouts');
@@ -17,14 +18,15 @@ const toast = require('./middlewares/toastMiddleware');
 const authen = require('./middlewares/authenticateMiddleware');
 const db = require('./config/config');
 
+app.use(compression());
 // Method override for PUT and DELETE
 app.use(methodOverride('_method'))
 // Session
 app.set('trust proxy', 1) // trust first proxy
 app.use(session({
-  secret: 'keyboard cat',
+  secret: process.env.SESSION_SECRET,
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: false,
   cookie: { secure: false }
 }))
 
@@ -34,16 +36,18 @@ app.use(cookieParser());
 // Connect to DB
 db.connectDB();
 
-// Body parser middleware
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
 // Middleware to parse JSON and URL-encoded data
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Static files
-app.use(express.static(path.join(__dirname, "public")));
+app.use(
+    express.static(path.join(__dirname, "public"), {
+        maxAge: "30d",
+        etag: true,
+        lastModified: true
+    })
+);
 
 // Template engine
 app.set('view engine', 'ejs');

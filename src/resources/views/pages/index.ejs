@@ -27,17 +27,36 @@
         <div class="manh-slider">
             <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
-                    <div class="carousel-item active" data-bs-interval="5000">
-                        <img src="https://cdn-media.sforum.vn/storage/app/media/ctvseo_maihue/hinh-nen-1920-1080/hinh-nen-1920-1080-thumbnail.jpg" 
-                             class="d-block w-100 mobile-slider-img" alt="Banner">
+                    <div class="carousel-item active">
+                        <img
+                            rel="preload"
+                            src="/img/hinh-nen-1920-1080-thumbnail.jpg"
+                            class="d-block w-100 mobile-slider-img"
+                            alt="Banner"
+                            loading="eager"
+                            fetchpriority="high"
+                            width="1920"
+                            height="700">
                     </div>
-                    <div class="carousel-item" data-bs-interval="5000">
-                        <img src="https://cdn.tgdd.vn/Files/2020/09/22/1292408/ironman_800x450.jpg" 
-                             class="d-block w-100 mobile-slider-img" alt="Banner">
+
+                    <div class="carousel-item">
+                        <img
+                            src="/img/hinh-nen-may-tinh-anime-4k (111).jpg"
+                            class="d-block w-100 mobile-slider-img"
+                            alt="Banner"
+                            loading="lazy"
+                            width="1920"
+                            height="700">
                     </div>
-                    <div class="carousel-item" data-bs-interval="5000">
-                        <img src="https://cdnv2.tgdd.vn/mwg-static/common/News/1586975/hinh-nen-may-tinh-anime-4k%20%28111%29.jpg" 
-                             class="d-block w-100 mobile-slider-img" alt="Banner">
+
+                    <div class="carousel-item">
+                        <img
+                            src="/img/ironman_800x450.jpg"
+                            class="d-block w-100 mobile-slider-img"
+                            alt="Banner"
+                            loading="lazy"
+                            width="1920"
+                            height="700">
                     </div>
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
